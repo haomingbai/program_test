@@ -1,0 +1,19 @@
+.allUse{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.allUseDisplay{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page {
+  background-color: #f0f0f0; /* 设置背景颜色 */
+  background-image: url('../../res/forshow.png'); /* 设置背景图片 */
+  background-size: cover; /* 图片以尽可能小的尺寸铺满整个容器 */
+  /* 其他背景样式属性，例如背景重复、位置等 */
+}
+

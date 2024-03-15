@@ -1,0 +1,15 @@
+.up{
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.arrow{
+  margin-left: 30rpx;
+  width: 10px;
+  height: 10px;
+  border-bottom:2px solid black ;
+  border-left:2px solid black ;
+  transform: rotate(45deg);
+
+}

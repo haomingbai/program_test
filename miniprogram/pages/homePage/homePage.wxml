@@ -1,0 +1,152 @@
+<!-- try it -->
+<image src="../../res/forshow.png" mode="widthFix" style="width: 100%;"/>
+
+<view style="position: relative;top: -35vh;">
+  <view class="scrollPage">
+    <view class="UCenter-bg" style="height: 33.9vh;">
+      <view class="allUseDisplay" style="width: 100%;width: 750rpx;height: 40.05vh;flex-direction: column;">
+        <image src="/../../res/logo.png" mode="widthFix" style="width:150rpx;margin-top: 8vh;" />
+        <view class="text-white text-xl">
+          程序设计考试报名
+        </view>
+        
+        <view class="text-white margin-top-sm" >
+          Computer Teaching Center
+        </view>
+        <image src="https://raw.githubusercontent.com/weilanwl/ColorUI/master/demo/images/wave.gif" mode="widthFix" style="width: 100%;mix-blend-mode:screen;z-index: 99;margin-top: -4vh;"/>
+      </view>
+    </view>
+
+    <!-- 下方导航栏 -->
+    <view class="padding flex text-center text-grey bg-white shadow-warp" style="border-top-color: white;">
+      <view class="flex flex-sub flex-direction solid-right">
+        <view class="text-xxl text-orange">{{nosign}}</view>
+        <view class="margin-top-sm">
+          <text class="cuIcon-attentionfill"></text>“未报名”
+        </view>
+      </view>
+
+
+      <view class="flex flex-sub flex-direction solid-right">
+        <view class="text-xxl text-blue">{{sname}}</view>
+        <view class="margin-top-sm">
+          <text class="cuIcon-favorfill"></text>“姓名”
+        </view>
+      </view>
+
+
+      <view class="flex flex-sub flex-direction">
+        <view class="text-xxl text-green">{{sign}}</view>
+        <view class="margin-top-sm">
+          <text class="cuIcon-fork"></text> “已报名”
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+
+
+
+
+
+<!-- 教室列表 -->
+<!-- <image src="../../res/forshow.png" mode="aspectFill" style="height: {{barInfo.barH+130}}px;width:750rpx;position: fixed;z-index: -1;" />
+<view class="allUseDisplay" style="width: 100%;width: 750rpx;height: {{barInfo.barH+130}}px;flex-direction: column;">
+  <text style="color: white;font-size: 50rpx;">CTC</text>
+  <view class="text-white" style="font-size: 60rpx;">
+    程序设计能力比赛
+  </view>
+  <view class="text-white" style="font-size: 40rpx;">
+    Computer Teaching Center
+  </view>
+</view> -->
+
+
+
+<!-- list:比赛数，报名数，比赛教室数 -->
+<!-- <view class=" radius shadow background-white  allUse" style="margin-top:-25px;z-index: 999;margin-left: 50rpx;margin-right: 50rpx;background-color: white;justify-content: space-evenly;padding: 30rpx;"> -->
+  <!-- 比赛数 -->
+  <!-- <view class="allUse" style="flex-direction: column;">
+    <text style="font-size: 40rpx;">1</text>
+    <text style="font-size: 22rpx;">比赛总数</text>
+  </view> -->
+  <!-- 分界线 -->
+  <!-- <view style="width: 1rpx;height:2vh;border-left: 4rpx solid gray;">
+  </view> -->
+  <!-- 报名数 -->
+  <!-- <view class="allUse" style="flex-direction: column;">
+    <text style="font-size: 40rpx;">{{count}}</text>
+    <text style="font-size: 22rpx;">报名总数</text>
+  </view> -->
+  <!-- 分界线 -->
+  <!-- <view style="width: 1rpx;height:2vh;border-left: 4rpx solid gray;">
+  </view> -->
+  <!-- 教室数 -->
+  <!-- <view class="allUse" style="flex-direction: column;">
+    <text style="font-size: 40rpx;">3</text>
+    <text style="font-size: 22rpx;">场次数</text>
+  </view>
+</view> -->
+<view style="position: relative;top: -35vh;width: 100%;">
+<!-- 比赛列表 -->
+
+<view class="cu-bar justify-center" style="margin-left: 2vh;margin-top: 0vh;z-index:1;">
+  <view class="action sub-title" style="justify-content: space-between;height: 100%;width: 100%;">
+    <view style="height: 100%;width: auto;display: flex;flex-direction: column;" style="z-index: 20;">
+      <text class="text-xl text-bold" style="font-size: medium;z-index: -1;">报名信息</text>
+      <text class="text-ABC text-gray" style="display: flex;justify-content: flex-start;">message</text>
+    </view>
+  </view>
+</view>
+
+<!-- 列表信息需要根据用户的情况来选择性报名，选什么课抱什么课程名 -->
+<view wx:for="{{reserveExam}}" bindtap="navigateToExam" data-url="../examInform/examInformList" data-cno="{{item}}" class=" shadow-warp margin-top radius" style="display: flex;align-items: flex-start;margin-left: 2vh;margin-right: 2vh;background-color: white;border-bottom-color: #F1F1F1;margin-top: 1.2vh;">
+  <view>
+    <view style="display: flex;width: 100%;padding: 2.5vh;">
+      <image src="../../res/icon.png" mode="heightFix" style="height: 8vh;" />
+      <view class="text-xl text-bold" style="font-size: 1.5vh;display: flex;align-items: center;justify-content: center;flex-direction: column;margin-left: 7vh;">
+      </view>
+    </view>
+  </view>
+
+  <view style="height: 100%;width: auto;display: flex;align-items: center;justify-content: center;height: 13vh;">
+    <view style="display: flex;width: 100%;padding: 2.5vh;align-items: center;justify-content: center;">
+      <view class="text-xl text-bold" style="font-size: 1.5vh;display: flex;align-items: center;justify-content: center;flex-direction: column;line-height: 3vh;">
+        <text>考试科目</text>
+        <text>{{item}}</text>
+      
+      </view>
+    </view>
+  </view>
+</view>
+
+<view style="height: 20vh;">
+
+</view>
+
+<view class="box shadow shadow-lg" style="position: fixed;bottom: 0vh;width: 750rpx;z-index: 20;">
+  <view class="cu-bar tabbar bg-black shadow shadow-lg" style="background-color: white!important;">
+    <view bindtap="navigateToTabbar" data-url="../lookReservation/lookReservation" class="action text-black">
+      <view class="cuIcon-time"></view>查看报名
+    </view>
+
+    <view class="action text-white add-action ">
+      <button bindtap="changeStats" data-class="slide-bottom" class="cu-btn cuIcon-sort bg-red shadow "></button>
+      <view class="text-red">
+        报名比赛
+      </view>
+    </view>
+    <view bindtap="navigateToTabbar" data-url="../persion/persion" class="action text-black">
+      <view class="cuIcon-people">
+      </view>
+      个人信息
+    </view>
+  </view>
+</view>
+</view>
+
+
+
+

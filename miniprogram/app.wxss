@@ -1,0 +1,9 @@
+@import "style/main.wxss";
+@import "style/icon.wxss";
+@import "./colorui/main.wxss";
+@import "./colorui/icon.wxss";
+/**app.wxss**/
+page {
+  font-family: "Microsoft YaHei"!important;
+  font-size: 2vh;
+}

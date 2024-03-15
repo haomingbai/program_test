@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/persion/persion",
+    "pages/homePage/homePage",
+    "pages/lookReservation/lookReservation",
+    "pages/examInform/examInformList",
+    "pages/reservationForm/reservationForm",
+    "pages/examRule/examRule",
+    "pages/connectUs/connectUs",
+    "pages/logo/logo",
+    "pages/privateInfo/privateInfo",
+    "pages/selectTime/selectTime"
+  ],
+  "tabBar": {
+    "custom": true,
+    "selectedColor": "#A66840",
+    "list": [{
+      "pagePath": "pages/homePage/homePage",
+      "text": "首页",
+      "iconPath": "./res/about.png",
+      "selectedIconPath": "./res/about.png"
+    },
+    {
+      "pagePath": "pages/persion/persion",
+      "text": "我的",
+      "iconPath": "./res/about.png",
+      "selectedIconPath": "./res/about.png"
+    },
+    {
+      "pagePath": "pages/lookReservation/lookReservation",
+      "text": "我的",
+      "iconPath": "./res/about.png",
+      "selectedIconPath": "./res/about.png"
+    }
+  ]
+  },
+  
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

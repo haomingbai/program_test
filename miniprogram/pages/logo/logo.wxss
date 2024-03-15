@@ -1,0 +1,49 @@
+.title{
+  font-size: 2vh;
+  
+  width: 150rpx;
+}
+.wxavatar {
+  overflow: hidden;
+  display: block;
+  width: 230rpx;
+  height: 230rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.input-item{
+  border: 1rpx solid #aaaaaa;
+  padding: 5px;
+  border-radius: 5000px;
+  margin-top: 25rpx;
+}
+.duty-color{
+  color: var(--brown);
+  font-weight: 500;
+}
+
+.checkbox-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+checkbox .wx-checkbox-input {
+    width: 30rpx;
+    height: 30rpx;
+    border-radius: 50%;
+  }
+
+  checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+    border-color: #18d6ff;
+    background-color: #18d6ff;
+  }
+
+  checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+    color:#fff;
+  }

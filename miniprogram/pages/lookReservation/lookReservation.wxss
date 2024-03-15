@@ -1,0 +1,23 @@
+.cu-item {
+  width: 100%;
+  text-align: center;
+  background-color: #fff;
+  margin: 0;
+  border: none;
+  position: relative;
+}
+.up{
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.arrow{
+  margin-left: 30rpx;
+  width: 10px;
+  height: 10px;
+  border-bottom:2px solid white ;
+  border-left:2px solid white ;
+  transform: rotate(45deg);
+
+}

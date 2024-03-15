@@ -1,0 +1,18 @@
+<view style="display: flex;align-items: center;justify-content: center;width: 100%;height: auto;flex-direction: column;">
+  <view style="width: 90%;background-color: white;margin-top: 4vh;padding: 3vh;line-height: 4vh;border-radius: 20rpx;">
+    <view style="font-weight: 600;width: 600rpx!important;border-bottom: 1rpx dashed #ccc;font-size: 3vh;" ecode="{{true}}" ><text class="cuIcon-phone lg" style="margin-right: 10rpx;"></text>联系我们</view>
+    <text decode="{{true}}" style="font-size:2vh;">
+      15178803654
+    </text>
+
+    <!-- <view style="font-weight: 600;width: 600rpx!important;border-bottom: 1rpx dashed #ccc;margin-top: 4vh;font-size: 3vh;" ecode="{{true}}" ><text class="cuIcon-weixin lg" style="margin-right: 10rpx;"></text>公众号</view>
+    <text decode="{{true}}">
+        关注渭南市博物馆公众号即可
+    </text> -->
+
+    <view style="font-size: 3vh;font-weight: 600;width: 600rpx!important;border-bottom: 1rpx dashed #ccc;margin-top: 4vh;" ecode="{{true}}" ><text class="cuIcon-mail lg" style="margin-right: 10rpx;"></text>邮箱联系技术人员</view>
+    <text decode="{{true}}" style="font-size: 2vh;">
+      2067068392@qq.com
+    </text>
+  </view>
+</view>

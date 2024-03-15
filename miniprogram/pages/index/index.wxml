@@ -1,0 +1,30 @@
+<image src="../../res/forshow.png" mode="heightFix" style="height: 100vh;position: fixed;z-index: -1;"/>
+<view class="allUseDisplay" style="width: 750rpx;height: 100vh;flex-direction: column;">
+  <text style="color: white;font-size: 50rpx;">CTC</text>
+  
+  <view class="text-white" style="font-size: 60rpx;">
+    程序设计考试报名
+  </view>
+  <view class="text-white" style="font-size: 40rpx;">
+    Computer Teaching Center
+  </view>
+  <!-- <text class="bg-red margin-top" >
+    我要报名
+  </text> -->
+
+  <view class="allUseDisplay margin-top" style="flex-direction: column;">
+    <!-- <view class="action sub-title">
+      <text class="text-xl text-bold text-green">关于我们</text>
+      <text class="bg-green" style="width:2rem"></text>
+      <!-- last-child选择器-->
+    <!-- </view> -->
+    
+    <button bindtap="toNavigate" class="cu-btn margin-tb-sm lg" style="background-color: #E91E63;z-index: 99;color: white;">
+      我要报名   <text class="cuIcon-right"></text>
+    </button>
+    <button class="cu-btn block line-orange lg" style="margin-top: -5vh;margin-left: 40rpx;"></button>
+
+
+  </view>
+
+</view>

@@ -1,0 +1,19 @@
+<!-- 自定义头部修理一堆bug，哭了 -->
+<view class="head-bar" style="height: {{barInfo.barH}}px; background-color: white; padding-top: {{barInfo.barTop}}px;width: 100%;position:fixed;top:0rpx!important;width: 750rpx;z-index: 999;">
+    <view style="height: {{barInfo.barBtnH}}px; line-height: {{barInfo.barBtnH}}px; " class="up">
+        <view class="arrow" bindtap="toNavigate"></view>
+    <view style="margin-left: 3vh; font-size: 28rpx;color: black;">
+        考试报名
+    </view>
+    </view>
+</view> 
+<view style="height: {{barInfo.barH}}px;"></view>
+<view style="display: flex;align-items: center;justify-content: center;width: 100%;height: auto;flex-direction: column;">
+  <view style="width: 90%;background-color: white;margin-top: 4vh;padding: 2vh;line-height: 4vh;border-radius: 20rpx;">
+    <text  user-select="{{true}}" style="font-size: large;font-weight: 600;">考试须知</text>
+    <text decode="{{true}}" ><text decode="{{true}}" style="margin-top: 1vh;">\n1、应按照规定的具体时间，在考试开始前30分钟抵达指定地点。\n\n2、考生须持有效证件、铅笔、签字笔、橡皮等参加考试；禁止携带手机等任何电子器件，如发现按为违规处理。\n\n3、考试开始前及考试期间将对每个考生的证件进行核验。如考生所持证件不符合证件要求，将禁止其参加考试。&nbsp;&nbsp;</text></text>
+  </view>
+  
+    <button bindtap="togetReserve"  class="bg-gradual-blue" type="primary" style="margin-top: 4vh;height: 6vh;width: 500rpx;display: flex;align-items: center;justify-content: center;border-radius: 20rpx;background-color: #E91E63">确认</button>
+ 
+</view>

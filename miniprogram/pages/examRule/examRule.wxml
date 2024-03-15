@@ -1,0 +1,8 @@
+<view style="display: flex;align-items: center;justify-content: center;width: 100%;height: auto;flex-direction: column;">
+  <view style="width: 90%;background-color: white;margin-top: 4vh;padding: 3vh;line-height: 4vh;border-radius: 20rpx;">
+    <text style="font-size: 3vh;font-weight: 600;" ecode="{{true}}">程序设计考试</text>
+    <text decode="{{true}}" style="font-size: 2vh;">
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;\n1、参考试须知\n&nbsp;&nbsp; &nbsp;(1)考试时间和地点：请确认考试的具体时间和地点，并提前到达考场\n&nbsp;&nbsp;（2)考试要求：请遵守考试纪律，按照考试规定进行答题。不得抄袭、舞弊或干扰其他考生\n&nbsp;&nbsp;（3)严禁通信工具：请将手机、通信工具等电子设备关闭并放置在指定位置，不得携带进入考场\n&nbsp;&nbsp;（4)注意交卷时间：按照监考老师的指示，准确掌握考试结束时间，并在规定时间内交卷
+    </text>
+  </view>
+</view>

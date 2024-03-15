@@ -1,0 +1,71 @@
+<!-- 自定义头部修理一堆bug，哭了 -->
+<view class="head-bar" style="height: {{barInfo.barH}}px; background-color: white; padding-top: {{barInfo.barTop}}px;width: 100%;position:fixed;top:0rpx!important;width: 750rpx;z-index: 999;">
+    <view style="height: {{barInfo.barBtnH}}px; line-height: {{barInfo.barBtnH}}px; " class="up">
+        <view class="arrow"></view>
+    <view style="font-size: 28rpx;color: black;">
+        查看报名
+    </view>
+    </view>
+</view> 
+<view style="height: {{barInfo.barH}}px;"></view>
+
+<!-- tabbar -->
+<view class="shadow shadow-lg" style="position: fixed;bottom: 0vh;width: 750rpx;z-index: 20;">
+  <view class="cu-bar tabbar bg-black shadow shadow-lg" style="background-color: white!important;">
+    <view class="action text-red">
+      <view class="cuIcon-time"></view>查看报名
+    </view>
+
+    <view bindtap="navigateToTabbar" data-url="../homePage/homePage" class="action text-white add-action ">
+      <button bindtap="changeStats" data-class="slide-bottom" class="cu-btn cuIcon-sort bg-red shadow "></button>
+      <view class="text-black">
+        报名比赛
+      </view>
+    </view>
+    <view bindtap="navigateToTabbar" data-url="../persion/persion"  class="action text-black">
+      <view class="cuIcon-people">
+      </view>
+      个人信息
+    </view>
+  </view>
+</view>
+
+<!-- 比赛报名 -->
+<view wx:for="{{myImessage}}" class="padding text-center">
+  <view class="padding-xl radius shadow bg-white text-xxl" style="border-radius: 20rpx;padding-top: -1vh;">
+    <text bindtap="url" data-data="{{item._id}}" class="text-bold" style="color: black;font-size: 3vh;">比赛时段</text>
+    <view>
+      <view class="cu-form-group margin-top">
+        <view style="font-size: 2vh;">比赛日期</view>
+        <view style="font-size: 2vh;">
+          {{item.datesend}}
+        </view>
+      </view>
+      <view class="cu-form-group">
+        <view style="font-size: 2vh;">时段</view>
+        <view style="font-size: 2vh;">
+          {{item.time_begin}} - {{item.time_end}}
+        </view>
+      </view>
+      <!-- <view class="cu-form-group">
+        <view style="font-size: 2vh;">地点</view>
+        <view style="font-size: 2vh;">
+          {{item.place}}
+        </view>
+      </view> -->
+    </view>
+
+
+    <text bindtap="url" data-data="{{item._id}}" class="text-bold" style="color: black;font-size: 2vh;position:relative;left: 210rpx;border: 2rpx solid black;padding: 10rpx;border-radius: 20rpx;">查看详情<text class="cuIcon-left lg"></text></text>
+  </view>
+</view>
+
+<view wx:if="{{!myImessage.length&&flag}}" style="width: 100%;height: auto;display: flex;align-items: center;justify-content: center;margin-top: 5vh;">
+  <view class="cu-item" style="display: flex;align-items: center;justify-content: center;font-size: 3vh;width: 500rpx;border-radius: 20rpx;height: 6vh;">
+  暂未报名
+</view>
+</view>
+
+<view style="height: 20vh;">
+  
+</view>

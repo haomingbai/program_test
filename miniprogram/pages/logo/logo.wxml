@@ -1,0 +1,48 @@
+<view class="padding text-center">
+  <view class="padding-xl radius shadow bg-white text-xxl" style="padding-bottom: 0rpx!important;">
+    <text class="text-bold" style="color:black;">个人信息</text>
+    <view>
+      <view class="cu-form-group margin-top">
+        <view class="title">姓名</view>
+        <view>
+          <input model:value="{{sname}}" placeholder="请输入姓名" type="text" />
+        </view>
+      </view>
+
+      <view class="cu-form-group" style="border-bottom: 1rpx solid #eee;">
+        <view class="title">学号</view>
+        <view>
+          <input type="idcard" model:value="{{sno}}" placeholder="请输入学号" />
+        </view>
+      </view>
+      <view class="cu-form-group" style="font-size: 14px;display: flex;justify-content: space-evenly;flex-direction: column;">
+        <view style="margin-top: 30rpx;">选择考试课程</view>
+        <checkbox-group bindchange="handleCheckboxChange" style="margin-top: 20rpx;">
+          <label wx:for="{{options}}" wx:key="{{index}}">
+            <checkbox value="{{item.value}}" checked="{{item.cnoFlag}}" style="margin: 20rpx;">{{item.label}}</checkbox>
+          </label>
+        </checkbox-group>
+      </view>
+    </view>
+    <view class='margin-top-sm padding' style="display: flex;align-items: center;justify-content: center;">
+      <view class="text-sm">
+
+        <text class=""></text>
+        <text bindtap="givePower" wx:if="{{flagPrivate}}" style="color: red;">
+          <text style="font-size: 2vh;">☑</text>
+          <text style="color: black;">同意小程序在你使用期间的</text>
+        </text>
+        <text bindtap="givePower" wx:else="{{flagPrivate}}" style="color: red;">
+          <text style="font-size: 2vh;">☐</text>
+          <text style="color: black;">同意小程序在你使用期间的</text>
+        </text>
+        <navigator url="../privateInfo/privateInfo" hover-class="none">
+          <view class="padding"><text class="text-blue  text-sm">《隐私协议》</text></view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="padding flex flex-direction">
+  <button bindtap="add_update_studentInfo" class="cu-btn round bg-brown lg" style="background-color: #3C98FA;width: 500rpx;font-size: 3vh;display: flex;align-items: center;justify-content: center;">确定</button>
+</view>
