@@ -1,119 +1,85 @@
 // app.js
-App({
-  globalData: {
-    day: [],
-    group: '考试报名',
-    flag: false,
-    room: '',
-    room2091Limmit: [],
-    room2093Limmit: [],
-    room3091Limmit: [],
-    room3093Limmit: [],
-  },
 
-  getTopBarInfo() {
-    // 获取基础设备信息
-    let menuInfo = wx.getMenuButtonBoundingClientRect()
-    let sysInfo = wx.getSystemInfoSync()
-
-    // 有关头部导航栏
-    let barTop = menuInfo.top
-    let barBtnH = menuInfo.height
-    let statusH = sysInfo.statusBarHeight
-    let barH = statusH + barBtnH + (barTop - statusH) * 2
-    let margin = sysInfo.screenWidth - menuInfo.right
-    if (sysInfo.safeArea) {
-      margin = sysInfo.safeArea.width - menuInfo.right
-    }
-    this.globalData.barInfo = {
-      barTop,
-      barBtnH,
-      barH,
-      margin,
-    }
-  },
-  //判断用户登录状态
-  getUserLogo(openid) {
-    
-    //判断登录问题
-    const db = wx.cloud.database();
-    var that = this
-    db.collection('student_reserve') //拿到表。双引号也行
-      .where({
-        user_openid: openid
-      })
-      .get({ //查询操作
-        //请求成功  
-        success(res) {
-          console.log(res)
-          if(res.data.length){
-            that.globalData.logoFlag=true
-              wx.switchTab({
-                url: '../persion/persion',
-              }).then(res=>{
-                wx.setStorageSync('logoFlag',true);
-                wx.setStorageSync('openid',openid);
-                wx.hideLoading();
-              })
-          }else{
-            wx.setStorageSync('logoFlag', false);
-            wx.setStorageSync('openid', openid);
-            wx.hideLoading();
-          } 
-        },
-        //请求失败
-        fail(err) {
-          console.log('请求失败', err)
-          wx.showToast({
-            title: '出现故障',
-            icon: 'error'
-          })
-          wx.hideLoading();
-        }
-      })
-  },
-
-  //获取用户openid
-  getOpenid() {
-    wx.showLoading({
-      title: '加载中',
-      mask:true
-    })
-    let that = this
-    wx.cloud.callFunction({
-      name: 'getOpenid',
-      success: res => {
-        console.log('云函数调用成功', res.result);
-        // 处理返回结果
-        var openid = res.result.openid;
-        that.globalData.openid = openid;
-        that.getUserLogo(res.result.openid)
-      },
-      fail: err => {
-        console.error('云函数调用失败', err);
-        // 处理错误信息
-      }
-    });
-  },
-
-  initFunction() {
-    this.globalData.logoFlag=false
-    if (!wx.cloud) {
-      console.error('请使用 2.2.3 或以上的基础库以使用云能力');
-    } else {
-      wx.cloud.init({
-        traceUser: true,
-      }).then(res => {
-        this.getOpenid()
-      });
-
-    }
-  },
-
-
-  onLaunch: function () {
-
-    this.getTopBarInfo()
-    this.initFunction()
+class studentInfo {
+  constructor(){
+    this.studentName = "haomingbai";
+    this.studentID = "0000000000";
+    this.flagUIS = false;
+    this.userID = "minihaomingbai";
+    this.roomID = "云D534，不服来打架";
   }
-});
+}
+
+class teacherInfo {
+  constructor(){
+    this.accountInfo = "姜老登是**";
+    this.password = "7vdbd-dyqkp-gx242-yckmg-khcf9";
+  }
+}
+
+class courseInfo {
+  constructor(){
+    this.courseID = "BrainFuck程序设计";
+    this.studentID = [];
+  }
+}
+
+class roomInfo {
+  constructor(){
+    this.testLocation = "云D550，有大佬";
+    this.testTime = "时间都停了，他们都回来了";
+    this.courseID = "BrainFuck程序设计";
+    this.studentFormID = "常盘台中学二年级";
+    this.QRCode = "https://hlkg.mhedu.sh.cn/";
+  }
+}
+
+class adminInfo {
+  constructor (){
+    this.accountInfo = "御坂美琴的宿管";
+    this.password = "白井黑子";
+    this.email = "艾尔迪亚网信办邮箱";
+    this.phoneNumber = "姜学锋的手机号";
+  }
+}
+
+class studentForm {
+  constructor(){
+    this.serialNumber = [];
+    this.studentID = [];
+    this.studentName = [];
+    this.courseID = "BrainFuck程序设计";
+    this.isSigned = [];
+  }
+}
+
+App({
+
+  /**
+   * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
+   */
+  onLaunch: function () {
+    
+  },
+
+  /**
+   * 当小程序启动，或从后台进入前台显示，会触发 onShow
+   */
+  onShow: function (options) {
+    
+  },
+
+  /**
+   * 当小程序从前台进入后台，会触发 onHide
+   */
+  onHide: function () {
+    
+  },
+
+  /**
+   * 当小程序发生脚本错误，或者 api 调用失败时，会触发 onError 并带上错误信息
+   */
+  onError: function (msg) {
+    
+  }
+})

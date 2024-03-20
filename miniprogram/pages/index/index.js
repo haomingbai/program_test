@@ -1,5 +1,5 @@
 // pages/showPage/showPage.js
-const db = wx.cloud.database()
+//const db = wx.cloud.database()
 var app = getApp();
 Page({
 

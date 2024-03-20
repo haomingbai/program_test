@@ -1,87 +1,68 @@
 // pages/toInformList/toInformList.js
 const app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    barInfo: app.globalData.barInfo,
-    _id:''
-  },
-  togetReserve(e){
-    console.log(e)
-    wx.redirectTo({
-      url: '../selectTime/selectTime',
-    })
-  },
-
-  toNavigate(){
-    wx.switchTab({
-      url: '../homePage/homePage',
-    })
+    
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-    wx.showLoading({
-      title: '加载中',
-      mask:true
-    })
-    console.log(options._id)
-    this.setData({
-      _id:options._id
-    })
+  onLoad: function (options) {
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady() {
-    wx.hideLoading()
+  onReady: function () {
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-
+  onShow: function () {
+    
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide() {
-
+  onHide: function () {
+    
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload() {
-
+  onUnload: function () {
+    
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
-
+  onPullDownRefresh: function () {
+    
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom() {
-
+  onReachBottom: function () {
+    
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage() {
-
+  onShareAppMessage: function () {
+    
   }
 })
