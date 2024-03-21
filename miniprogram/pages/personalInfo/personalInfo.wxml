@@ -1,0 +1,143 @@
+<!--TOP-->
+<!-- <image src="../../res/4710013.jpg" mode="widthFix" style="width: 750rpx;" /> -->
+<image src="../../res/forshow.png" style="width: 100%;"/>
+
+<view style="position: relative;top: -24vh;left: 80rpx;">
+    <view class="userinfo">
+        <!--头像-->
+        <view bindtap="logoIn" class="userinfo-avatar bg-white" style="display: flex;align-items: center;justify-content: center;">
+            <!-- <open-data type="userAvatarUrl"></open-data> -->
+            <image src="{{avatar}}" mode="heightFix" style="overflow: hidden;height: 50%;width: 100%;" />
+        </view>
+
+        <!--昵称-->
+        <view class="box4 text-black" style="z-index: 999; height: 190rpx;justify-content: center;flex-direction: column;align-items: flex-start;">
+            <view class="all_use_display" style="width: auto; margin-bottom: 1vh;">
+                <view bindtap="toInfo" class="info_name ui-TC" wx:if="{{!name}}" style="color: white;margin-left: 15rpx;font-weight: 600;">登录</view>
+                <view class="info_name ui-TC" wx:if="{{name}}" style="color: white;margin-left: 15rpx;font-weight: 600;">{{name}}</view>
+                <view bindtap="toInfo" class="margin-top ui-TC" wx:if="{{name}}" style="color: white;margin-left: 15rpx;font-weight: 600;">点此更改信息</view>
+            </view>
+
+            <view class="all_use_display shadow bg-yellow padding radius text-center light" style="justify-items: center;text-align: center;padding: 7rpx;font-size: 25rpx;">
+                {{data.phone}}
+            </view>
+        </view>
+
+        <!--箭头-->
+        <view bindtap="changeIms" wx:if="{{userName}}" class="cuIcon-right lg text-gray" style="margin-left: 150rpx;font-size: 60rpx;font-weight: 700;">
+
+        </view>
+
+
+    </view>
+</view>
+
+<!-- 个人信息的修改 -->
+<view class="all_use_display" style="width: 100%;height: auto;align-items: center;justify-content: center;">
+    <view style="position: relative;top: -29vh;width: 100%;">
+        <view class="cu-bar bg-white solid-bottom margin-top" style="border-top-left-radius: 20rpx;border-top-right-radius: 20rpx;">
+            <view class="action">
+                <text class="cuIcon-title text-orange"></text> 考试信息
+            </view>
+        </view>
+
+        <view class="cu-bar bg-white solid-bottom padding-xl" style="border-bottom-left-radius: 20rpx;border-bottom-right-radius: 20rpx;display: flex;align-items:center;justify-content: space-evenly;line-height:4vh;padding-top: 0vh;">
+          西北工业大学程序设计能力：编程是一门艺术，创造力无极限。
+        </view>
+    </view>
+</view>
+
+
+<!-- 列表 -->
+<view class="display" style="position: relative;top: -28vh;">
+    <view class="listColumOutside" style="width: 750rpx;">
+        <!-- list元素 -->
+        <view bindtap="url" data-url="../examRule/examRule"  class="listColumInside" style="border-bottom: 2rpx solid #F1F1F1;">
+            <image mode="widthFix" src="../../res/about.png"></image>
+            <view class="listModdle">关于考试</view>
+            <view class="arrow"></view>
+        </view>
+
+        <view bindtap="url" data-url="../connectUs/connectUs" class="listColumInside" style="border-bottom: 2rpx solid #F1F1F1;">
+            <image mode="widthFix" src="../../res/toEmai.png"></image>
+            <view class="listModdle">联系我们</view>
+            <view class="arrow"></view>
+        </view>
+
+        <view bindtap="backStage" class="listColumInside" style="border-bottom: 2rpx solid #F1F1F1;">
+            <image mode="widthFix" src="../../res/setting.png"></image>
+            <view class="listModdle">系统管理</view>
+            <view class="arrow"></view>
+        </view>
+
+        <!-- <view bindtap="aboutvolunte" data-url="../../res/dowe.png" class="listColumInside" style="border-bottom: 2rpx solid #F1F1F1;">
+            <image mode="widthFix" src="../../res/dowe.png"></image>
+            <view class="listModdle">志愿者认证</view>
+            <view class="arrow"></view>
+        </view> -->
+
+        <button open-type="feedback" style="display: flex;height: 7vh;width: 100%;background-color: white;padding:0vh;align-items: center;">
+            <image mode="widthFix" src="../../res/fankui.png"></image>
+            <view class="listModdle" style="display: flex;">问题反馈</view>
+            <view class="arrow"></view>
+        </button>
+
+    </view>
+</view>
+
+<!-- <view style="position: relative;top: -15vh;display: flex;font-size: 24rpx;align-items: center;width: 100%;height: 10vh;justify-content: center;">
+    <view style="width: 84%;height: 100%;display: flex;align-items: center;justify-content: space-between;">
+        <view style="color: #9c9c9c !important;"> 比赛报名小程序</view>
+        <view style="color: #999999 !important; ">小单单技术支持</view>
+    </view>
+</view> -->
+
+
+<!-- tabbar -->
+<view class="shadow shadow-lg" style="position: fixed;bottom: 0vh;width: 750rpx;z-index: 20;">
+  <view class="cu-bar tabbar bg-black shadow shadow-lg" style="background-color: white!important;">
+    <view bindtap="navigateToTabbar" data-url="../lookReservation/lookReservation" class="action text-black">
+      <view class="cuIcon-time"></view>查看报名
+    </view>
+
+    <view bindtap="navigateToTabbar" data-url="../homePage/homePage" class="action text-white add-action ">
+      <button bindtap="changeStats" data-class="slide-bottom" class="cu-btn cuIcon-sort bg-red shadow "></button>
+      <view class="text-black">
+        报名比赛
+      </view>
+    </view>
+    <view  class="action text-red">
+      <view class="cuIcon-people">
+      </view>
+      个人信息
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{flagShow}}" class="box" style="position: fixed;top: 42vh;">
+
+<view class="card smallFont" style="margin-left: 0rpx;">
+
+<view class="display" style="height: auto ;width: 100%;justify-content: space-between;">
+  <view style="font-size: 3vh;margin-top: 2vh;margin-left: 10rpx;flex-direction: column;">
+管理员身份认证
+</view>
+
+<view bindtap="cancelBackStage" style="width:50rpx ;height: 50rpx;font-size: 90rpx;margin-right: 20rpx;">×</view>
+</view>
+
+    <view class="display1">
+        <view style="color: red;margin-right:5rpx ;">*</view>
+        姓名：
+    </view>
+    <input bindinput="userName" type="text" placeholder="请输入姓名" value="{{userName}}" />
+    <view class="display1">
+        <view style="color: red;margin-right:5rpx ;"> * </view>
+        密码
+    </view>
+    <input bindinput="Identify" type="text" placeholder="请输入密码" value="{{Identify}}"/>
+    <view></view>
+    <button bindtap="checkIdentify" class="button" type="primary" style="font-size:3vh;height:6vh;border-radius: 20rpx;  background-color: #3C98FA;width: 500rpx;">确认</button>
+</view>
+
+</view>

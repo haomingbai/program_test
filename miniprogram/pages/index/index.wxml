@@ -24,6 +24,11 @@
     </button>
     <button class="cu-btn block line-orange lg" style="margin-top: -5vh;margin-left: 40rpx;"></button>
 
+    <button bindtap="adminLogin" class="cu-btn margin-tb-sm lg" style="background-color: #808080;z-index: 99;color: white;">
+      管理员登陆   <text class="cuIcon-right"></text>
+    </button>
+    <button class="cu-btn block line-orange lg" style="margin-top: -5vh;margin-left: 40rpx;"></button>
+
 
   </view>
 

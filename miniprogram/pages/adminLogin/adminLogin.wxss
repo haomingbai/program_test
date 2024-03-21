@@ -1,0 +1,6 @@
+/* pages/adminLogin/adminLogin.wxss */
+.allUseDisplay{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -11,7 +11,13 @@ Page({
   },
   toNavigate() {
     wx.switchTab({
-      url: '../persion/persion',
+      url: '../personalInfo/personalInfo',
+    })
+  },
+
+  adminLogin() {
+    wx.navigateTo({
+      url: '../adminLogin/adminLogin',
     })
   },
   /**

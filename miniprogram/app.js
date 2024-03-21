@@ -38,8 +38,8 @@ class adminInfo {
   constructor (){
     this.accountInfo = "御坂美琴的宿管";
     this.password = "白井黑子";
-    this.email = "艾尔迪亚网信办邮箱";
-    this.phoneNumber = "姜学锋的手机号";
+    //this.email = "艾尔迪亚网信办邮箱";
+    //this.phoneNumber = "姜学锋的手机号";
   }
 }
 
@@ -58,8 +58,8 @@ App({
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
-  onLaunch: function () {
-    
+  onLaunch: function() {
+
   },
 
   /**
