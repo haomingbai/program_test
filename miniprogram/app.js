@@ -26,7 +26,7 @@ class courseInfo {
 
 class roomInfo {
   constructor(){
-    this.testLocation = "云D550，有大佬";
+    this.roomInfo = "云D550，有大佬";
     this.testTime = "时间都停了，他们都回来了";
     this.courseID = "BrainFuck程序设计";
     this.studentFormID = "常盘台中学二年级";

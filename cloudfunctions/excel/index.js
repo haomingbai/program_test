@@ -3,6 +3,8 @@ const cloud = require('wx-server-sdk')
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
 
+const db = cloud.database()
+
 var xlsx = require('node-xlsx');
 
 // 云函数入口函数
@@ -25,9 +27,9 @@ exports.main = async(event, context) => {
     for (var rowId in sheet['data']) {
       console.log(rowId);
       var row = sheet['data'][rowId]; //第几行数据
-      db.collection('course_sId').where({
+/*      db.collection('course_sId').where({
         courseID: row[0]
-      }).then(
+      }).get().then(
         res => {
           if(res.data.length == 0){
             let course = new courseInfo();
@@ -49,8 +51,39 @@ exports.main = async(event, context) => {
             tasks.push(promise)
           }
         }
+      ) */
+      const promise = db.collection('course_sId').where({
+        course: row[0]
+      }).get().then(
+        res => {
+          if(res.data.length == 0){
+            db.collection('course_sId').add({
+              data:{
+                courseID: row[0],
+                studentID: []
+              }
+            })
+          }
+          db.collection('test_partInfo').where({
+            courseID: row[0],
+            testTime: row[1],
+            roomInfo: row[2]
+          }).get().then(
+            res => {
+              if(res.data.length == 0 && rowId > 0 && row){
+                db.collection('test_partInfo').add({
+                  data:{
+                    courseID: row[0],
+                    testTime: row[1],
+                    roomInfo: row[2]
+                  }
+                })
+              }
+            }
+          )
+        }
       )
-
+      tasks.push(promise);
     }
   });
 
