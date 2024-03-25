@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "node-xls": "^0.0.8",
-    "wx-server-sdk": "~3.0.1"
+    "node-xlsx": "^0.23.0",
+    "wx-server-sdk": "^3.0.1",
+    "xlsx": "^0.19.3"
   }
 }

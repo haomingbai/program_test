@@ -76,7 +76,7 @@ Page({
     let i = x.detail.value;
     this.setData (
       {
-        accountInfo: i
+        accountInfo: i.trim()
       }
     );
   },
@@ -84,7 +84,7 @@ Page({
     let i = x.detail.value;
     this.setData (
       {
-        password: i
+        password: i.trim()
       }
     );
   },
@@ -158,7 +158,8 @@ Page({
       filePath: path
     }).then(
       res => {
-        console.log("Successfully Update",res)
+        console.log("Successfully Update",res);
+        that.resolvExcel(res.fileID);
       }
     ).catch(
       err => {

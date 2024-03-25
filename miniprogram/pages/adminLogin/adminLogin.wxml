@@ -1,15 +1,15 @@
 <!--pages/adminLogin/adminLogin.wxml-->
 <form>	
-    <view class="cu-form-group margin-top">
+    <view class="cu-form-group margin-top" hidden="{{permitted}}">
 		<view class="title">用户名</view>
 		<input placeholder="请输入用户名" name="input" bindinput="refreshAccountInfo" value="{{accountInfo}}"></input>
 	</view>
-	<view class="cu-form-group">
+	<view class="cu-form-group" hidden="{{permitted}}">
 		<view class="title">密码</view>
 		<input placeholder="请输入密码" name="input" bindinput="refreshPassword" value="{{password}}"></input>
 	</view>
 </form>
-<button bind:tap="adminLogin">登录</button>
+<button bind:tap="adminLogin" hidden="{{permitted}}">登录</button>
 <view>{{loginResult}}</view>
 <button hidden="{{!permitted}}" bind:tap="chooseExcel">上传数据</button>
  

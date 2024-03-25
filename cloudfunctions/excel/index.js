@@ -8,16 +8,21 @@ const db = cloud.database()
 var xlsx = require('node-xlsx');
 
 // 云函数入口函数
-
 exports.main = async(event, context) => {
   let {
     fileID
   } = event
   //1,通过fileID下载云存储里的excel文件
-  const res = await cloud.downloadFile({
+  const res = await cloud.downloadFile({  
     fileID: fileID,
   })
   const buffer = res.fileContent
+
+  db.collection('TemperatureReport')
+    .where({
+      all:null,   
+    }).remove() //我这里先清空一下数据库
+
 
   const tasks = [] //用来存储所有的添加数据操作
   //2,解析excel文件里的数据
@@ -27,63 +32,20 @@ exports.main = async(event, context) => {
     for (var rowId in sheet['data']) {
       console.log(rowId);
       var row = sheet['data'][rowId]; //第几行数据
-/*      db.collection('course_sId').where({
-        courseID: row[0]
-      }).get().then(
-        res => {
-          if(res.data.length == 0){
-            let course = new courseInfo();
-            course.courseID = row[0];
-            db.collection('course_sId').add({
-              data:course
-            })
-          }
-          if (rowId > 0 && row) { //第一行是表格标题，所有我们要从第2行开始读
-            //3，把解析到的数据存到excelList数据表里
-            let dat = new roomInfo();
-            dat.courseID = row[0];
-            dat.testTime = row[1]; //第一列是课程名字，第二列考试时间，第三列考试地点
-            dat.testLocation = row[2];
-            const promise = db.collection('test_partInfo')
-              .add({
-                data: dat
-              })
-            tasks.push(promise)
-          }
-        }
-      ) */
-      const promise = db.collection('course_sId').where({
-        course: row[0]
-      }).get().then(
-        res => {
-          if(res.data.length == 0){
-            db.collection('course_sId').add({
-              data:{
-                courseID: row[0],
-                studentID: []
-              }
-            })
-          }
-          db.collection('test_partInfo').where({
-            courseID: row[0],
-            testTime: row[1],
-            roomInfo: row[2]
-          }).get().then(
-            res => {
-              if(res.data.length == 0 && rowId > 0 && row){
-                db.collection('test_partInfo').add({
-                  data:{
-                    courseID: row[0],
-                    testTime: row[1],
-                    roomInfo: row[2]
-                  }
-                })
-              }
+      if (rowId > 0 && row) { //第一行是表格标题，所有我们要从第2行开始读
+        //3，把解析到的数据存到excelList数据表
+        const promise = db.collection('test_partInfo')
+          .add({
+            data: {
+              courseID: row[0], //课程名字
+              testTime: row[1], //考试时间
+              roomInfo: row[2], //考试地址
+              teacherID: row[3], //监考老师登录账号
+              teacherPassword: row[4] //监考老师登录密码
             }
-          )
-        }
-      )
-      tasks.push(promise);
+          })
+          tasks.push(promise)
+      }
     }
   });
 
