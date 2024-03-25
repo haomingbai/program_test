@@ -1,0 +1,17 @@
+{
+  "name": "update_test_partInfo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-xls": "^0.0.8",
+    "node-xlsx": "^0.23.0",
+    "wx-server-sdk": "^3.0.1",
+    "xlsx": "^0.19.3"
+  }
+}
