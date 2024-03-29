@@ -11,6 +11,6 @@
 </form>
 <button bind:tap="adminLogin" hidden="{{permitted}}">登录</button>
 <view>{{loginResult}}</view>
-<button hidden="{{!permitted}}" bind:tap="chooseExcel">上传数据</button>
- 
+<button hidden="{{!permitted}}" bind:tap="chooseExcel">上传考场信息</button>
+<text>{{necessaryInformation}}</text>
 

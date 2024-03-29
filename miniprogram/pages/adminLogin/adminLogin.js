@@ -13,7 +13,8 @@ Page({
     password: "",
     account:{},
     loginResult:"",
-    permitted: false
+    permitted: false,
+    necessaryInformation: ""
   },
 
   /**
@@ -136,13 +137,17 @@ Page({
 
   resolvExcel(fileId) {
     wx.cloud.callFunction({
-      name: "excel",
+      name: "update_test_partInfo",
       data:{
         fileID: fileId
       }
     }).then(
       res => {
         console.log("succeed",res)
+
+      this.setData({
+        necessaryInformation: res.result
+      })
       }
     ).catch(
       res => {
