@@ -11,7 +11,8 @@
     "pages/logo/logo",
     "pages/privateInfo/privateInfo",
     "pages/selectTime/selectTime",
-    "pages/adminLogin/adminLogin"
+    "pages/adminLogin/adminLogin",
+    "pages/studentLogin/studentLogin"
   ],
   "tabBar": {
     "custom": true,

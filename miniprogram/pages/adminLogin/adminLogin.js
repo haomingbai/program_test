@@ -145,13 +145,23 @@ Page({
       res => {
         console.log("succeed",res)
 
-      this.setData({
-        necessaryInformation: res.result
-      })
+        this.setData({
+          necessaryInformation: res.result
+        })
+
+        wx.cloud.deleteFile({
+          fileList:[fileId]
+        })
+        
       }
     ).catch(
       res => {
         console.log("Fail",res)
+
+        wx.cloud.deleteFile({
+          fileList:[fileId]
+        })
+
       }
     )
   },
@@ -183,6 +193,130 @@ Page({
         let path = res.tempFiles[0].path;
         console.log("Successfully Chosen Files",path)
         that.uploadExcel(path)
+      }
+    )
+  },
+
+  resolvStudentForm(fileId) {
+    wx.cloud.callFunction({
+      name: "updateStudentForm",
+      data:{
+        fileID: fileId
+      }
+    }).then(
+      res => {
+        console.log("succeed",res)
+
+        this.setData({
+          necessaryInformation: res.result
+        })
+
+        wx.cloud.deleteFile({
+          fileList:[fileId]
+        })
+        
+      }
+    ).catch(
+      res => {
+        console.log("Fail",res)
+
+        wx.cloud.deleteFile({
+          fileList:[fileId]
+        })
+
+      }
+    )
+  },
+
+  uploadStudentForm(path) {
+    let that = this;
+    wx.cloud.uploadFile({
+      cloudPath: new Date().getTime() + '.xls',
+      filePath: path
+    }).then(
+      res => {
+        console.log("Successfully Update",res);
+        that.resolvStudentForm(res.fileID);
+      }
+    ).catch(
+      err => {
+        console.log("Upload Failed",err)
+      }
+    )
+  },
+
+  chooseStudentForm() {
+    let that = this;
+    wx.chooseMessageFile({
+      count: 1,
+      type: 'file'
+    }).then(
+      res => {
+        let path = res.tempFiles[0].path;
+        console.log("Successfully Chosen Files",path)
+        that.uploadStudentForm(path)
+      }
+    )
+  },
+
+  resolvCourseInfo(fileId) {
+    wx.cloud.callFunction({
+      name: "update_test_partInfo",
+      data:{
+        fileID: fileId
+      }
+    }).then(
+      res => {
+        console.log("succeed",res)
+
+        this.setData({
+          necessaryInformation: res.result
+        })
+
+        wx.cloud.deleteFile({
+          fileList:[fileId]
+        })
+        
+      }
+    ).catch(
+      res => {
+        console.log("Fail",res)
+
+        wx.cloud.deleteFile({
+          fileList:[fileId]
+        })
+
+      }
+    )
+  },
+
+  uploadCourseInfo(path) {
+    let that = this;
+    wx.cloud.uploadFile({
+      cloudPath: new Date().getTime() + '.xls',
+      filePath: path
+    }).then(
+      res => {
+        console.log("Successfully Update",res);
+        that.resolvCourseInfo(res.fileID);
+      }
+    ).catch(
+      err => {
+        console.log("Upload Failed",err)
+      }
+    )
+  },
+
+  chooseCourseInfo() {
+    let that = this;
+    wx.chooseMessageFile({
+      count: 1,
+      type: 'file'
+    }).then(
+      res => {
+        let path = res.tempFiles[0].path;
+        console.log("Successfully Chosen Files",path)
+        that.uploadCourseInfo(path)
       }
     )
   }

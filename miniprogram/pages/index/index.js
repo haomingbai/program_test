@@ -10,8 +10,11 @@ Page({
 
   },
   toNavigate() {
-    wx.switchTab({
-      url: '../personalInfo/personalInfo',
+    /*wx.switchTab({
+      //url: '../personalInfo/personalInfo',
+    })*/
+    wx.navigateTo({
+      url: '../studentLogin/studentLogin',
     })
   },
 

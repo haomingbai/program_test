@@ -13,4 +13,5 @@
 <view>{{loginResult}}</view>
 <button hidden="{{!permitted}}" bind:tap="chooseExcel">上传考场信息</button>
 <text>{{necessaryInformation}}</text>
+<button hidden="{{!permitted}}" bind:tap="chooseStudentForm">上传学生登陆信息</button>
 

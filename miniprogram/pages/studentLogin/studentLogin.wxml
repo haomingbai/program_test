@@ -1,0 +1,13 @@
+<!--pages/studentLogin/studentLogin.wxml-->
+<form>	
+    <view class="cu-form-group margin-top" hidden="{{permitted}}">
+		<view class="title">学号</view>
+		<input placeholder="请输入10位学号" name="input" bindinput="refreshAccountInfo" value="{{accountInfo}}"></input>
+	</view>
+	<view class="cu-form-group" hidden="{{permitted}}">
+		<view class="title">密码</view>
+		<input placeholder="请输入密码" name="input" bindinput="refreshPassword" value="{{password}}"></input>
+	</view>
+</form>
+<button bind:tap="studentLogin">登录</button>
+
