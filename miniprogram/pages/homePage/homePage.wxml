@@ -138,7 +138,7 @@
         报名比赛
       </view>
     </view>
-    <view bindtap="navigateToTabbar" data-url="../persion/persion" class="action text-black">
+    <view bindtap="navigateToTabbar" data-url="../personalInfo/personalInfo" class="action text-black">
       <view class="cuIcon-people">
       </view>
       个人信息

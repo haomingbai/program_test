@@ -5,8 +5,9 @@
 <view style="position: relative;top: -24vh;left: 80rpx;">
     <view class="userinfo">
         <!--头像-->
-        <view bindtap="logoIn" class="userinfo-avatar bg-white" style="display: flex;align-items: center;justify-content: center;">
+        <view class="userinfo-avatar bg-white" style="display: flex;align-items: center;justify-content: center;">
             <!-- <open-data type="userAvatarUrl"></open-data> -->
+            <!--设置头像这种事情我也不会！不要找我！这个代码是先辈的！-->
             <image src="{{avatar}}" mode="heightFix" style="overflow: hidden;height: 50%;width: 100%;" />
         </view>
 
@@ -15,11 +16,11 @@
             <view class="all_use_display" style="width: auto; margin-bottom: 1vh;">
                 <view bindtap="toInfo" class="info_name ui-TC" wx:if="{{!name}}" style="color: white;margin-left: 15rpx;font-weight: 600;">登录</view>
                 <view class="info_name ui-TC" wx:if="{{name}}" style="color: white;margin-left: 15rpx;font-weight: 600;">{{name}}</view>
-                <view bindtap="toInfo" class="margin-top ui-TC" wx:if="{{name}}" style="color: white;margin-left: 15rpx;font-weight: 600;">点此更改信息</view>
+                <view bindtap="logout" class="margin-top ui-TC" wx:if="{{name}}" style="color: white;margin-left: 15rpx;font-weight: 600;">登出</view>
             </view>
 
             <view class="all_use_display shadow bg-yellow padding radius text-center light" style="justify-items: center;text-align: center;padding: 7rpx;font-size: 25rpx;">
-                {{data.phone}}
+                {{studentID}}
             </view>
         </view>
 
@@ -64,7 +65,7 @@
             <view class="arrow"></view>
         </view>
 
-        <view bindtap="backStage" class="listColumInside" style="border-bottom: 2rpx solid #F1F1F1;">
+        <view bindtap="url" data-url="../backStageInfo/backStageInfo" class="listColumInside" style="border-bottom: 2rpx solid #F1F1F1;">
             <image mode="widthFix" src="../../res/setting.png"></image>
             <view class="listModdle">系统管理</view>
             <view class="arrow"></view>
@@ -114,6 +115,8 @@
   </view>
 </view>
 
+
+<!--以下是先辈做的管理员认证，如果您看得懂代码，您就用这个，我看不懂，我相信后人的智慧，我刚接手的时候的状态我已经归档了，清访问archive分支，相信后人的智慧，奥里给！-->
 <view wx:if="{{flagShow}}" class="box" style="position: fixed;top: 42vh;">
 
 <view class="card smallFont" style="margin-left: 0rpx;">

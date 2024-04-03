@@ -1,4 +1,4 @@
-// pages/persion/persion.js
+// pages/backStageInfo/backStageInfo.js
 Page({
 
   /**

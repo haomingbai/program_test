@@ -1,0 +1,12 @@
+<!--pages/backStageInfo/backStageInfo.wxml-->
+<view style="display: flex;align-items: center;justify-content: center;width: 100%;height: auto;flex-direction: column;">
+  <view style="width: 90%;background-color: white;margin-top: 4vh;padding: 3vh;line-height: 4vh;border-radius: 20rpx;">
+    <text style="font-size: 3vh;font-weight: 600;" ecode="{{true}}">程序设计考试\n</text>
+    <text decode="{{true}}" style="font-size: 2vh;">
+    这个功能我已经不用了，这个按钮是前辈留下来的。这个功能我不会写，这里啥也没有，谢谢！\n
+    真正的管理员请在主界面登录！如果要回到主界面，请点击右上角的“。。。”按钮，然后点击“重新进入小程序”并点击“管理员登录”按钮重新登录！\n
+    引导不详细，不生动，生动的我不会写。惭愧！\n
+    如果你是接盘的可怜孩子，这个页面的名字叫backStageInfo。
+    </text>
+  </view>
+</view>

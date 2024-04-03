@@ -23,7 +23,10 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+    this.setData({
+      name: wx.getStorageSync('studentName'),
+      studentID: wx.getStorageSync('studentID')
+    })
   },
 
   /**
@@ -71,7 +74,20 @@ Page({
   navigateToTabbar (event) {
     console.log(event);
     wx.switchTab({
-      url: event.target.dataset.url,
+      url: event.currentTarget.dataset.url,
+    })
+  },
+
+  logout () {
+    wx.clearStorageSync();
+    wx.reLaunch({
+      url: '../index/index',
+    })
+  },
+
+  url(event) {
+    wx.navigateTo({
+      url: event.currentTarget.dataset.url,
     })
   }
 

@@ -66,5 +66,12 @@ Page({
    */
   onShareAppMessage: function () {
     
-  }
+  },
+
+  navigateToTabbar (event) {
+    console.log(event);
+    wx.switchTab({
+      url: event.currentTarget.dataset.url,
+    })
+  },
 })
