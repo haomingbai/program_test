@@ -1,5 +1,9 @@
 var app = getApp();
 
+wx.cloud.init()
+
+const db = wx.cloud.database();
+
 //const normalFunction = require('../../commonFunction/normalFunction')
 
 Page({
@@ -8,14 +12,49 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    barInfo: app.globalData.barInfo,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.setData({
+      studentName: wx.getStorageSync('studentName'),
+      studentID: wx.getStorageSync('studentID')
+    });
+    const that = this;
+    db.collection('student_reserve').doc(that.data.studentID).get().then(
+      res => {
+        that.setData({
+          Signed: res.data.roomID.length,
+          notSigned: res.data.selectedCourses.length-res.data.roomID.length,
+        })
+        const reserved = res.data.roomID;
+        const examForm = [];
+        for(var course of res.data.selectedCourses){
+          let result = reserved.find(
+            item => {
+              return item.courseID === course;
+            }
+          )
+          if(!result){
+            examForm.push(course);
+          }
+        }
+        that.setData({
+          reserveExam: examForm
+        })
+      }
+    ).catch(
+      err => {
+        console.log(err);
+        wx.showToast({
+          title: '网络错误',
+        })
+      }
+    )
+
   },
 
   /**
@@ -73,4 +112,14 @@ Page({
       url: event.currentTarget.dataset.url,
     })
   },
+  
+  changeStats() {
+    this.onLoad();
+  },
+
+  navigateToExam: function (event) {
+    wx.navigateTo({
+      url: event.currentTarget.dataset.url+'?courseID='+event.currentTarget.dataset.cno,
+    })
+  }
 })

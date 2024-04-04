@@ -7,14 +7,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    barInfo: app.globalData.barInfo,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    const that = this;
+    //console.log(options);
+    that.setData({
+      courseID: options.courseID
+    })
   },
 
   /**
@@ -64,5 +68,19 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+
+  togetReserve: function (event) {
+    const that = this;
+    wx.navigateTo({
+      url: '../selectTime/selectTime'+'?courseID='+that.data.courseID,
+    })
+  },
+
+  
+  toNavigate: function () {
+    wx.navigateBack({
+      delta: 2
+    })
   }
 })

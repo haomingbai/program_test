@@ -32,6 +32,12 @@ exports.main = async(event, context) => {
       //result.push(rowId);
       if (row && row.length > 0&& calc) { //第一行是表格标题，所有我们要从第2行开始读
         //3，把解析到的数据存到excelList数据表
+        var volume = 0;
+        if(typeof(row[5]) != 'number'){
+          volume = row[5].parseInt();
+        }else{
+          volume = row[5];
+        }
         const promise = (async (row) => {
           const r = await db.collection('test_partInfo').where({
               testTime: row[1],
@@ -56,6 +62,7 @@ exports.main = async(event, context) => {
             adding = db.collection('test_studentForm').add({
               data: {
                 _id: row[0]+row[1]+row[2],
+                roomVolume: volume,
                 studentID: [],
                 isSigned: []
               }
@@ -90,6 +97,7 @@ exports.main = async(event, context) => {
             let adding = db.collection('test_studentForm').add({
               data: {
                 student: [],
+                roomVolume: volume,
                 _id: row[0]+row[1]+row[2],
                 isSigned: []
               }

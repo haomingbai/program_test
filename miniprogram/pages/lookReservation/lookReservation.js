@@ -1,5 +1,9 @@
 var app = getApp();
 
+wx.cloud.init()
+
+const db = wx.cloud.database();
+
 //const initFunction = require('../../commonFunction/initFunction')
 
 Page({
@@ -8,7 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    barInfo: app.globalData.barInfo,
     
   },
 
@@ -16,6 +20,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+  const  that = this;
+    that.setData({
+      studentID: wx.getStorageSync('studentID'),
+      studentName: wx.getStorageSync('studentName')
+    })
+    db.collection('student_reserve').doc(that.data.studentID).get().then(
+      res => {
+        that.setData({
+          testInfo: res.data.roomID
+        })
+      }
+    )
     
   },
 
@@ -74,4 +90,5 @@ Page({
       url: event.currentTarget.dataset.url,
     })
   },
+
 })

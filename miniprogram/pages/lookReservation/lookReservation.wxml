@@ -31,29 +31,29 @@
 </view>
 
 <!-- 比赛报名 -->
-<view wx:for="{{myImessage}}" class="padding text-center">
+<view wx:for="{{testInfo}}" class="padding text-center">
   <view class="padding-xl radius shadow bg-white text-xxl" style="border-radius: 20rpx;padding-top: -1vh;">
-    <text bindtap="url" data-data="{{item._id}}" class="text-bold" style="color: black;font-size: 3vh;">比赛时段</text>
+    <text bindtap="url" data-data="{{item._id}}" class="text-bold" style="color: black;font-size: 3vh;">{{item.courseID}}</text>
     <view>
       <view class="cu-form-group margin-top">
-        <view style="font-size: 2vh;">比赛日期</view>
+        <view style="font-size: 2vh;">比赛时间</view>
         <view style="font-size: 2vh;">
-          {{item.datesend}}
+          {{item.testTime}}
         </view>
       </view>
-      <view class="cu-form-group">
+      <!--<view class="cu-form-group">
         <view style="font-size: 2vh;">时段</view>
         <view style="font-size: 2vh;">
           {{item.time_begin}} - {{item.time_end}}
         </view>
-      </view>
-      <!-- <view class="cu-form-group">
+      </view>-->
+      <view class="cu-form-group">
         <view style="font-size: 2vh;">地点</view>
         <view style="font-size: 2vh;">
-          {{item.place}}
+          {{item.roomInfo}}
         </view>
-      </view> -->
-    </view>
+      </view>
+    </view> 
 
 
     <text bindtap="url" data-data="{{item._id}}" class="text-bold" style="color: black;font-size: 2vh;position:relative;left: 210rpx;border: 2rpx solid black;padding: 10rpx;border-radius: 20rpx;">查看详情<text class="cuIcon-left lg"></text></text>

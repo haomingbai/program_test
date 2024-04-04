@@ -20,7 +20,7 @@
     <!-- 下方导航栏 -->
     <view class="padding flex text-center text-grey bg-white shadow-warp" style="border-top-color: white;">
       <view class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-orange">{{nosign}}</view>
+        <view class="text-xxl text-orange">{{notSigned}}</view>
         <view class="margin-top-sm">
           <text class="cuIcon-attentionfill"></text>“未报名”
         </view>
@@ -28,7 +28,7 @@
 
 
       <view class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-blue">{{sname}}</view>
+        <view class="text-xxl text-blue">{{studentName}}</view>
         <view class="margin-top-sm">
           <text class="cuIcon-favorfill"></text>“姓名”
         </view>
@@ -36,7 +36,7 @@
 
 
       <view class="flex flex-sub flex-direction">
-        <view class="text-xxl text-green">{{sign}}</view>
+        <view class="text-xxl text-green">{{Signed}}</view>
         <view class="margin-top-sm">
           <text class="cuIcon-fork"></text> “已报名”
         </view>

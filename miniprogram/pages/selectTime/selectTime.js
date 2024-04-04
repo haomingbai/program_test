@@ -1,20 +1,69 @@
 const app = getApp()
 //const cloudFunction = require("../../commonFunction/cloudFunction")
 
+wx.cloud.init();
+
+const db = wx.cloud.database();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    barInfo: app.globalData.barInfo,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    const that =  this;
+    //console.log(options);
+    let courseID = options.courseID;
+    //console.log(courseID);
+    db.collection('test_partInfo').where({
+      courseID: courseID
+    }).get().then(
+      async res => {
+        if(res.data.length == 0){
+          that.setData({
+            flag: true
+          });
+        } else {
+          const form = [], info = res.data;
+          for(const it of info){
+            console.log(it);
+            //console.log(it.courseID+it.testTime+it.roomInfo);
+            //console.log(typeof(it.courseID+it.testTime+it.roomInfo));
+            await db.collection('test_studentForm').doc(it.courseID+it.testTime+it.roomInfo).get().then(
+              res => {
+                if(res.data.student.length < res.data.roomVolume){
+                  form.push(it);
+                }
+              }
+            ).catch(
+              err => {
+                wx.showToast({
+                  title: '网络错误',
+                })
+                console.log(err);
+              }
+            )
+          }
+          if(form.length){
+            that.setData({
+              list: form
+            })
+          } else {
+            that.setData({
+              flag: true
+            })
+          }
+          //console.log(form.length);
+        }
+      }
+    )
   },
 
   /**
@@ -64,5 +113,11 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+
+  toNavigate: function () {
+    wx.navigateBack({
+      delta: 2
+    })
   }
 })

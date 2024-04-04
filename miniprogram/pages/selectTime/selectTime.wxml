@@ -1,45 +1,23 @@
 <view style="height: {{barInfo.barH}}px;;width: 750rpx;">
 </view>
 
-<view class="VerticalBox">
-  <scroll-view class="VerticalNav nav" scroll-y scroll-with-animation scroll-top="{{VerticalNavTop}}" style="height:calc(100vh - 375rpx)">
-    <view class="cu-item {{index==TabCur?'text-green cur':''}}" wx:for="{{list}}" wx:key bindtap='tabSelect' data-id="{{index}}" style="font-size: 25rpx;">
-      {{item.name}}
-    </view>
-  </scroll-view>
-  <scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 375rpx)" scroll-into-view="main-{{MainCur}}" bindscroll="VerticalMain">
-    <view class="padding-top padding-lr" wx:for="{{list}}" wx:key id="main-{{index}}" style="height: 77vh;">
-  <view class='cu-bar solid-bottom bg-white'>
-    <view class='action'>
-      <text class='cuIcon-title text-green'></text>{{item.name}}
-    </view>
+<view class="cu-list menu sm-border card-menu" wx:for="{{list}}">
+  <view class="cu-item" examInfo = "{{item}}">
+      <view class="content padding-tb-sm">
+          <view>
+              <text class="cuIcon-clothesfill text-blue margin-right-xs"></text> {{item.courseID}}
+          </view>
+          <view class="text-gray text-sm">
+              <text class="cuIcon-infofill margin-right-xs"></text> 考试地点：{{item.roomInfo}}
+          </view>
+          <view class="text-gray text-sm">
+              <text class="cuIcon-infofill margin-right-xs"></text> 考试时间：{{item.testTime}}
+          </view>
+      </view>
   </view>
-  <view class="cu-list menu-avatar">
-    <!-- 如果没有考试就下面显示出来flag=true -->
-    <view wx:if="{{flag}}" class="cu-item" style="display: flex;align-items: center;justify-content: center;font-size: 32rpx;">
-      暂无考试
-    </view>
 
-    <!-- 有排课在下面 -->
-    <view bindtap="navigatorToLogin" data-item="{{innerItem}}" class="cu-item" wx:for="{{reserveList}}" wx:key="index" wx:for-index="innerIndex" wx:for-item="innerItem">
-      <image src="./../../res/icon.png" class="cu-avatar round lg"></image>
-      <view class="content">
-        <view class="text-grey" style="width: 500rpx;color: black;">{{innerItem.activeName}}</view>
-        <view class="text-gray text-sm flex">
-          <text class="text-cut">
-            <text class="cuIcon-timefill text-green  margin-right-xs"></text> 开始时间：{{innerItem}}
-          </text>
-        </view>
-      </view>
-      <view class="action">
-        <!-- <view class="text-grey text-xs">剩余名额</view>
-        <view class="cu-tag round bg-grey sm">{{XX}}</view> -->
-      </view>
-    </view>
-  </view>
 </view>
-  </scroll-view>
-</view>
+
 
 <!-- 自定义头部修理一堆bug，哭了 -->
 <view class="head-bar" style="height: {{barInfo.barH}}px; background-color: white; padding-top: {{barInfo.barTop}}px;width: 100%;position:fixed;top:0rpx!important;width: 750rpx;z-index: 999;">

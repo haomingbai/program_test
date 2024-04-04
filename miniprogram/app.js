@@ -55,11 +55,38 @@ class studentForm {
 
 App({
 
+  globalData: {
+  },
+
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
   onLaunch: function() {
+    this.getTopBarInfo()
 
+  },
+
+
+  getTopBarInfo() {
+    // 获取基础设备信息
+    let menuInfo = wx.getMenuButtonBoundingClientRect()
+    let sysInfo = wx.getSystemInfoSync()
+
+    // 有关头部导航栏
+    let barTop = menuInfo.top
+    let barBtnH = menuInfo.height
+    let statusH = sysInfo.statusBarHeight
+    let barH = statusH + barBtnH + (barTop - statusH) * 2
+    let margin = sysInfo.screenWidth - menuInfo.right
+    if (sysInfo.safeArea) {
+      margin = sysInfo.safeArea.width - menuInfo.right
+    }
+    this.globalData.barInfo = {
+      barTop,
+      barBtnH,
+      barH,
+      margin,
+    }
   },
 
   /**

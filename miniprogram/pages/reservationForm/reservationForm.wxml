@@ -178,11 +178,12 @@
 </view>
 
 <!-- 自定义头部修理一堆bug，哭了 -->
+
 <view class="head-bar" style="height: {{barInfo.barH}}px; background-color: white; padding-top: {{barInfo.barTop}}px;width: 100%;position:fixed;top:0rpx!important;width: 750rpx;z-index: 999;">
-    <view style="height: {{barInfo.barBtnH}}px; line-height: {{barInfo.barBtnH}}px; " class="up">
-        <view class="arrow" bindtap="toNavigate"></view>
+  <view style="height: {{barInfo.barBtnH}}px; line-height: {{barInfo.barBtnH}}px; " class="up">
+    <view class="arrow" bindtap="toNavigate"></view>
     <view style="margin-left: 3vh; font-size: 28rpx;color: black;">
-        比赛报名
+      考试报名
     </view>
-    </view>
-</view> 
+  </view>
+</view>
