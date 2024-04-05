@@ -33,7 +33,7 @@ Page({
         } else {
           const form = [], info = res.data;
           for(const it of info){
-            console.log(it);
+            //console.log(it);
             //console.log(it.courseID+it.testTime+it.roomInfo);
             //console.log(typeof(it.courseID+it.testTime+it.roomInfo));
             await db.collection('test_studentForm').doc(it.courseID+it.testTime+it.roomInfo).get().then(
@@ -119,5 +119,23 @@ Page({
     wx.navigateBack({
       delta: 2
     })
+  },
+
+  reserveTest: function (event) {
+    //console.log(event.currentTarget.dataset.testinfo);
+    let testInfo = event.currentTarget.dataset.testinfo;
+    //console.log(testInfo)
+    const studentID = wx.getStorageSync('studentID')
+    wx.cloud.callFunction({
+      name: 'reserveTest',
+      data: {
+        event: testInfo,
+        context: studentID
+      }
+    }).then(
+      res => {
+        console.log(res);
+      }
+    )
   }
 })

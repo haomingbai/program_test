@@ -1,8 +1,9 @@
 <view style="height: {{barInfo.barH}}px;;width: 750rpx;">
 </view>
 
-<view class="cu-list menu sm-border card-menu" wx:for="{{list}}">
-  <view class="cu-item" examInfo = "{{item}}">
+<view class="cu-list menu sm-border card-menu"></view>
+<view class="cu-list menu sm-border card-menu" wx:for="{{list}}" data-testInfo="{{item}}" bind:tap="reserveTest">
+  <view class="cu-item">
       <view class="content padding-tb-sm">
           <view>
               <text class="cuIcon-clothesfill text-blue margin-right-xs"></text> {{item.courseID}}
