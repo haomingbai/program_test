@@ -1,0 +1,7 @@
+/* pages/teacherLogin/teacherLogin.wxss */
+.cu-form-group .title {
+	min-width: calc(4em + 15px);
+}
+page {
+  overflow-y: auto !important;
+}

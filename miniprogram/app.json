@@ -5,7 +5,6 @@
     "pages/homePage/homePage",
     "pages/lookReservation/lookReservation",
     "pages/examInform/examInformList",
-    "pages/reservationForm/reservationForm",
     "pages/examRule/examRule",
     "pages/connectUs/connectUs",
     "pages/logo/logo",
@@ -13,7 +12,10 @@
     "pages/selectTime/selectTime",
     "pages/adminLogin/adminLogin",
     "pages/studentLogin/studentLogin",
-    "pages/backStageInfo/backStageInfo"
+    "pages/backStageInfo/backStageInfo",
+    "pages/testInfo/testInfo",
+    "pages/teacherLogin/teacherLogin",
+    "pages/studentSignin/studentSignin"
   ],
   "tabBar": {
     "custom": true,

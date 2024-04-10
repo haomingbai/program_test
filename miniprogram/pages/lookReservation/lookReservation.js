@@ -91,4 +91,11 @@ Page({
     })
   },
 
+  url: function (event) {
+    console.log(event.currentTarget.dataset.data)
+    wx.navigateTo({
+      url: '../testInfo/testInfo?_id='+event.currentTarget.dataset.data,
+    })
+  }
+
 })

@@ -1,0 +1,28 @@
+<!--pages/testInfo/testInfo.wxml-->
+    <!-- 图标 + 标题、arrow 带箭头 -->
+<view class="cu-list menu sm-border card-menu">
+</view>
+<view class="cu-list menu sm-border card-menu">
+    <view class="cu-item">
+        <view class="content">
+            <text class="cuIcon-info text-grey"></text>
+            <text class="text-grey">{{testInfo.courseID}}</text>
+        </view>
+    </view>
+    <view class="cu-item">
+        <view class="content">
+            <text class="cuIcon-time text-grey"></text>
+            <text class="text-grey">{{testInfo.testTime}}</text>
+        </view>
+    </view>
+    <view class="cu-item">
+        <view class="content">
+            <text class="cuIcon-location text-grey"></text>
+            <text class="text-grey">{{testInfo.roomInfo}}</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu sm-border card-menu">
+  <button class="cu-btn round bg-red shadow" style="float: right;" bind:tap="cancelReservation">取消报名</button>
+</view>
+

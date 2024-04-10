@@ -10,62 +10,55 @@ const db = cloud.database({
 
 const _ = db.command;
 
+
 // 云函数入口函数
-exports.main = async (event,context) => {
-
-
-  const studentID = event.context;
-  
-  try {
-
+exports.main = async (event, context) => {
+  const id = event.id;
+  const studentID = event.studentID;
+  try{
     const transaction = await db.startTransaction();
-    const tryRoomInfo = event.event.courseID + event.event.testTime + event.event.roomInfo;
-
-    const item = await transaction.collection('test_studentForm').doc(tryRoomInfo).get();
     const student = await transaction.collection('student_reserve').doc(studentID).get();
-    if(item.data.roomVolume - item.data.student.length > 0 && student) {
-      const updateStudentForm = await transaction.collection('test_studentForm').doc(tryRoomInfo).update({
+    const test = await transaction.collection('test_partInfo').doc(id).get();
+    if(student&&test) {
+      const roomID = test.data.courseID+test.data.testTime+test.data.roomInfo;
+      const updateRoom = await transaction.collection('test_studentForm').doc(roomID).update({
         data: {
-          student: _.push({
-            _id: student.data._id,
-            name: student.data.name,
+          student: _.pull({
+            _id: studentID,
+            name: student.data.name
           }),
-          isSigned: _.push(0)
+          isSigned: _.pop()
         }
-      })
+      });
+      const courseID = test.data.courseID;
       const updateStudentReserve = await transaction.collection('student_reserve').doc(studentID).update({
         data: {
-          roomID: _.push({
-            _id: event.event._id,
-            courseID: event.event.courseID,
-            roomInfo: event.event.roomInfo,
-            testTime: event.event.testTime
+          roomID: _.pull({
+            _id: id,
+            courseID: courseID,
+            testTime: test.data.testTime,
+            roomInfo: test.data.roomInfo
           })
         }
-      })
-
+      });
       await transaction.commit();
-
       return {
         success: true,
-        log: 'Successfully enrolled in the exam!'
-      };
-
+        log: "Success!"
+      }
     } else {
       await transaction.rollback();
       return {
         success: false,
-        log: 'Student is not found (low possibility) or the volumn is full!'
+        log: "Update Failed"
       }
     }
-
-    
-
   } catch (e) {
     return {
       success: false,
-      log: e
+      log: {
+        error: e
+      }
     }
   }
-
 }

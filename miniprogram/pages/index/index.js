@@ -23,6 +23,18 @@ Page({
       url: '../adminLogin/adminLogin',
     })
   },
+
+  teacherLogin () {
+    wx.navigateTo({
+      url: '../teacherLogin/teacherLogin',
+    })
+  },
+
+  studentSignin (){
+    wx.navigateTo({
+      url: '../studentSignin/studentSignin',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

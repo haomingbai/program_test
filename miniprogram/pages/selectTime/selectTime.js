@@ -17,50 +17,28 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: async function (options) {
     const that =  this;
     //console.log(options);
     let courseID = options.courseID;
     //console.log(courseID);
-    db.collection('test_partInfo').where({
-      courseID: courseID
-    }).get().then(
+    await wx.cloud.callFunction({
+      name: 'getCourse',
+      data: {
+        courseID: courseID
+      }
+    }).then(
       async res => {
-        if(res.data.length == 0){
+        let f = await res.result;
+        console.log(f);
+        if(f.length){
           that.setData({
-            flag: true
-          });
+            list: f
+          })
         } else {
-          const form = [], info = res.data;
-          for(const it of info){
-            //console.log(it);
-            //console.log(it.courseID+it.testTime+it.roomInfo);
-            //console.log(typeof(it.courseID+it.testTime+it.roomInfo));
-            await db.collection('test_studentForm').doc(it.courseID+it.testTime+it.roomInfo).get().then(
-              res => {
-                if(res.data.student.length < res.data.roomVolume){
-                  form.push(it);
-                }
-              }
-            ).catch(
-              err => {
-                wx.showToast({
-                  title: '网络错误',
-                })
-                console.log(err);
-              }
-            )
-          }
-          if(form.length){
-            that.setData({
-              list: form
-            })
-          } else {
-            that.setData({
-              flag: true
-            })
-          }
-          //console.log(form.length);
+          wx.showToast({
+            title: '错误',
+          })
         }
       }
     )
@@ -123,7 +101,14 @@ Page({
 
   reserveTest: function (event) {
     //console.log(event.currentTarget.dataset.testinfo);
+    wx.showLoading({
+      title: '报名中',
+      mask: true
+    })
     let testInfo = event.currentTarget.dataset.testinfo;
+    this.setData({
+      flag: false
+    })
     //console.log(testInfo)
     const studentID = wx.getStorageSync('studentID')
     wx.cloud.callFunction({
@@ -135,7 +120,27 @@ Page({
     }).then(
       res => {
         console.log(res);
+        wx.reLaunch({
+          url: '../index/index',
+        })
+        wx.hideLoading()
+        setTimeout(
+          res => {
+            wx.showToast({
+              title: '报名成功',
+            })
+          }, 1000
+        )
+      }
+    ).catch(
+      err => {
+        console.log(err);
+        wx.hideLoading()
+        wx.showToast({
+          title: '报名失败',
+        })
       }
     )
-  }
+  },
+  
 })

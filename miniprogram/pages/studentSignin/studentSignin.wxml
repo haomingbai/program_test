@@ -1,0 +1,3 @@
+<!--pages/studentSignin/studentSignin.wxml-->
+<text>\n</text>
+<button bind:tap="signin">扫码签到</button>

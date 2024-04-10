@@ -21,3 +21,7 @@
   transform: rotate(45deg);
 
 }
+
+page {
+    overflow-y: auto !important;
+}

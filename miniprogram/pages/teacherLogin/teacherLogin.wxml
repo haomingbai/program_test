@@ -1,0 +1,61 @@
+<!--pages/teacherLogin/teacherLogin.wxml-->
+<form hidden="{{getCourse}}">	
+    <view class="cu-form-group margin-top">
+		<view class="title">课程名称</view>
+		<input placeholder="例如：C++程序设计" name="input" bindinput="refreshCourseID" value="{{courseID}}"></input>
+	</view>
+    <view class="cu-form-group">
+    <button class='cu-btn bg-green shadow' bind:tap="fetchCourse">查询</button>
+	</view>
+</form>
+<view class="cu-list menu sm-border card-menu">
+</view>
+<view class="cu-list menu sm-border card-menu" >
+    <!-- 多行Item -->
+    <view class="cu-item" wx:for="{{course}}" data-index="{{item._id}}" data-value="{{item}}" bind:tap="inquireTest">
+        <view class="content padding-tb-sm">
+            <view>
+                <text class="cuIcon-clothesfill text-blue margin-right-xs"></text> {{item.courseID}}
+            </view>
+            <view class="text-gray text-sm">
+                <text class="cuIcon-timefill margin-right-xs"></text> {{item.testTime}}
+            </view>
+            <view class="text-gray text-sm">
+                <text class="cuIcon-locationfill margin-right-xs"></text> {{item.roomInfo}}
+            </view>
+        </view>
+    </view>
+</view>
+
+<form hidden="{{!getCourse||logined}}">	
+    <view class="cu-form-group margin-top">
+		<view class="title">用户名</view>
+		<input placeholder="" name="name" bindinput="refreshUsername" value="{{name}}"></input>
+	</view>
+    <view class="cu-form-group">
+		<view class="title">密码</view>
+		<input placeholder="" name="password" bindinput="refreshPassword" value="{{password}}"></input>
+	</view>
+  <view class="cu-form-group">
+    <button class='cu-btn bg-green shadow' bind:tap="loginSystem">查询</button>
+  </view>
+</form>
+
+<form hidden="{{!logined}}">
+	<view class="cu-form-group margin-top">
+  将复选框选中代表已经签到
+	</view>
+</form>
+
+<form hidden="{{!logined}}" wx:for="{{student}}" data-index="{{index}}">
+	<view class="cu-form-group">
+		<view class="title">{{item._id}} {{item.name}}</view>
+		<switch class="green" checked="{{isSigned[index]}}" data-index="{{index}}" bindchange="switchA"/>
+	</view>
+</form>
+<text>\n</text>
+<button hidden="{{!logined}}" style="display: flex; justify-content: center; align-items: center;" class="cu-btn round bg-red shadow" bind:tap="getFile">导出电子表格</button>
+<text>\n</text>
+<button hidden="{{!logined}}" style="display: flex; justify-content: center; align-items: center;" class="cu-btn round bg-red shadow" bind:tap="getQrCode">生成考场二维码</button>
+<text>\n</text>
+<image src="{{qrcodeURL}}" hidden="{{!logined}}" show-menu-by-longpress="1" style="display: flex;justify-content: center;"></image>
