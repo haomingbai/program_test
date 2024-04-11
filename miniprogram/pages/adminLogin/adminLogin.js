@@ -199,7 +199,7 @@ Page({
 
   resolvStudentForm(fileId) {
     wx.cloud.callFunction({
-      name: "updateStudentForm",
+      name: "uploadCourseInfo",
       data:{
         fileID: fileId
       }

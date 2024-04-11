@@ -34,36 +34,36 @@ exports.main = async(event, context) => {
         //3，把解析到的数据存到excelList数据表
         var volume = 0;
         if(typeof(row[5]) != 'number'){
-          volume = row[5].parseInt();
+          volume = await row[5].parseInt();
         }else{
           volume = row[5];
         }
         const promise = (async (row) => {
           const r = await db.collection('test_partInfo').where({
-              testTime: row[1],
-              roomInfo: row[2]
+              testTime: row[1].trim(),
+              roomInfo: row[2].trim()
           }).get();
           if(r.data.length == 0){
             let t = [];
             let adding = db.collection('test_partInfo').add({
               data:{
-                courseID: row[0],
-                testTime: row[1],
-                roomInfo: row[2],
-                teacherID: row[3],
-                teacherPassword: row[4]
+                courseID: row[0].trim(),
+                testTime: row[1].trim(),
+                roomInfo: row[2].trim(),
+                teacherID: row[3].trim(),
+                teacherPassword: row[4].trim()
               }
             })
             
-            result += row[0]+' '+row[1]+' '+row[2]+' '+row[3]+' '+row[4]+'\n' ;
+            result += row[0].trim()+' '+row[1].trim()+' '+row[2].trim()+' '+row[3].trim()+' '+row[4].trim()+'\n' ;
             t.push(adding);
             await adding;
 
             adding = db.collection('test_studentForm').add({
               data: {
-                _id: row[0]+row[1]+row[2],
+                _id: row[0].trim()+row[1].trim()+row[2].trim(),
                 roomVolume: volume,
-                studentID: [],
+                student: [],
                 isSigned: []
               }
             })
@@ -82,14 +82,14 @@ exports.main = async(event, context) => {
 
             let update = db.collection('test_partInfo').doc(r.data[0]._id).update({
               data: {
-                courseID: row[0],
-                teacherID: row[3],
-                teacherPassword: row[4]
+                courseID: row[0].trim(),
+                teacherID: row[3].trim(),
+                teacherPassword: row[4].trim()
               }
             })
             await update;
 
-            result += row[0]+' '+row[1]+' '+row[2]+' '+row[3]+' '+row[4]+'\n' ;
+            result += row[0].trim()+' '+row[1].trim()+' '+row[2].trim() +' '+row[3].trim() +' '+row[4].trim() +'\n' ;
 
             t.push(update);
             //await update;
@@ -98,7 +98,7 @@ exports.main = async(event, context) => {
               data: {
                 student: [],
                 roomVolume: volume,
-                _id: row[0]+row[1]+row[2],
+                _id: row[0].trim()+row[1].trim()+row[2].trim(),
                 isSigned: []
               }
             })

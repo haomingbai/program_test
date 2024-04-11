@@ -93,7 +93,7 @@ Page({
     let i = x.detail.value;
     this.setData (
       {
-        accountInfo: i.trim()
+        accountInfo: i
       }
     );
   },
@@ -102,7 +102,7 @@ Page({
     let i = x.detail.value;
     this.setData (
       {
-        password: i.trim()
+        password: i
       }
     );
   },
@@ -110,12 +110,12 @@ Page({
   studentLogin: function () {
     const that = this;
     //console.log(that.data.accountInfo);
-    db.collection('student_reserve').doc(that.data.accountInfo).get().then(
+    db.collection('student_reserve').doc(that.data.accountInfo.trim()).get().then(
       res => {
-        if(res.data.password == that.data.password){
-          wx.setStorageSync('studentID',that.data.accountInfo);
-          wx.setStorageSync('studentPassword',that.data.password);
-          wx.setStorageSync('studentName',res.data.name);
+        if(res.data.password.trim() == that.data.password.trim()){
+          wx.setStorageSync('studentID',that.data.accountInfo.trim());
+          wx.setStorageSync('studentPassword',that.data.password.trim());
+          wx.setStorageSync('studentName',res.data.name.trim());
           wx.switchTab({
             url: '../personalInfo/personalInfo',
           })

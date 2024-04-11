@@ -9,5 +9,10 @@
 		<input placeholder="请输入密码" name="input" bindinput="refreshPassword" value="{{password}}"></input>
 	</view>
 </form>
+<text>\n</text>
 <button bind:tap="studentLogin">登录</button>
+<text>\n</text>
+<text class="cu-form-group title" hidden="{{permitted}}">
+学生的密码是: 学号+班级号\n例如当学号为 "2018380197" 且班级为 "01101801" ，密码是：201838019701101801
+</text>
 
