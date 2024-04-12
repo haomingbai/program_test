@@ -2,7 +2,7 @@
 <form hidden="{{getCourse}}">	
     <view class="cu-form-group margin-top">
 		<view class="title">课程名称</view>
-		<input placeholder="例如：C++程序设计" name="input" bindinput="refreshCourseID" value="{{courseID}}"></input>
+		<input placeholder="例如：程序设计基础（Python）" name="input" bindinput="refreshCourseID" value="{{courseID}}"></input>
 	</view>
     <view class="cu-form-group">
     <button class='cu-btn bg-green shadow' bind:tap="fetchCourse">查询</button>
