@@ -33,18 +33,21 @@ exports.main = async(event, context) => {
   })
   const buffer = res.fileContent
 
+  let tmp = [];
+
   let tasks = [] //用来存储所有的添加数据操作
   //2,解析excel文件里的数据
   var sheets = xlsx.parse(buffer); //获取到所有sheets
 
   for(const sheet of sheets) {
-    var calc =0,courseID = "",len = sheet.data.length;
-    for(var rowId in sheet.data) {
-      let row = sheet.data[rowId]
+    let rowId = 0;
+    var courseID = "",len = sheet.data.length;
+    for(const row of sheet.data) {
       if(rowId == 1) {
         courseID = extractCourseName(row[0]).trim();
       } else if(rowId > 4&&rowId < len-1) {
-        const promise = (async (row,courseID) => {
+        tmp.push('exec');
+        let promise = (async (row,courseID) => {
           let _id = ''
           if(typeof(row[1]) != String) {
             _id = row[1].toString().trim()
@@ -53,13 +56,11 @@ exports.main = async(event, context) => {
           }
           const search = await db.collection('student_reserve').doc(_id).get();
           if(search.data) {
-            if(!search.data.includes(courseID)) {
-              await db.collection('student_reserve').doc(_id).update({
-                data: {
-                  selectedCourses: _.push(courseID)
-                }
-              })
-            }
+            await db.collection('student_reserve').doc(_id).update({
+              data: {
+                selectedCourses: _.addToSet(courseID)
+              }
+            })
           } else {
             let name = row[2].trim(),password = row[1].trim()+row[6].trim(),selectedCourses = [courseID]
             await db.collection('student_reserve').add({
@@ -75,10 +76,11 @@ exports.main = async(event, context) => {
         })(row,courseID)
         tasks.push(promise);
       }
+      rowId ++;
     }
   }
 
-  result =await Promise.all(tasks).then(
+  const result = await Promise.all(tasks).then(
     res => {
       return res;
     }
@@ -89,5 +91,5 @@ exports.main = async(event, context) => {
   )
   // 等待所有数据添加完成
   //await Promise.all(tasks)
-  return result
+  return result;
 }
