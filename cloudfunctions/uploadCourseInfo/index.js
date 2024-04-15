@@ -46,7 +46,6 @@ exports.main = async(event, context) => {
       if(rowId == 1) {
         courseID = extractCourseName(row[0]).trim();
       } else if(rowId > 4&&rowId < len-1) {
-        tmp.push('exec');
         let promise = (async (row,courseID) => {
           let _id = ''
           if(typeof(row[1]) != String) {
@@ -61,6 +60,7 @@ exports.main = async(event, context) => {
                 selectedCourses: _.addToSet(courseID)
               }
             })
+            tmp.push('exec');
           } else {
             let name = row[2].trim(),password = row[1].trim()+row[6].trim(),selectedCourses = [courseID]
             await db.collection('student_reserve').add({

@@ -4,15 +4,26 @@
 		<view class="title">学号</view>
 		<input placeholder="请输入10位学号" name="input" bindinput="refreshAccountInfo" value="{{accountInfo}}"></input>
 	</view>
+	<view class="cu-form-group" hidden="{{permitted || !enroll}}">
+		<view class="title">名字</view>
+		<input placeholder="请输入名字，仔细核对不要输错！" bindinput="refreshName" value="{{name}}" bindinput="refreshName"></input>
+	</view>
 	<view class="cu-form-group" hidden="{{permitted}}">
 		<view class="title">密码</view>
 		<input placeholder="请输入密码" name="input" bindinput="refreshPassword" value="{{password}}"></input>
 	</view>
 </form>
 <text>\n</text>
-<button bind:tap="studentLogin">登录</button>
+<button bind:tap="studentLogin" hidden="{{enroll}}">登录</button>
 <text>\n</text>
-<text class="cu-form-group title" hidden="{{permitted}}">
-学生的密码是: 学号+班级号\n例如当学号为 "2018380197" 且班级为 "01101801" ，密码是：201838019701101801
+<text class="" hidden="{{permitted || enroll}}">学生的密码，在通常状态下，是: 学号+班级号\n例如当学号为 "2018380197" 且班级为 "01101801" ，密码是：201838019701101801
 </text>
 
+<text>\n</text>
+
+<button hidden="{{enroll}}" style="color: red;" bind:tap="enrollInContest">报名比赛</button>
+
+<text hidden="{{!enroll}}">比赛是计算机实验技能大赛，密码设置之后务必记住！记不住联系技术支援！不要上课时间联系，他没空！</text>
+
+
+<button hidden="{{!enroll}}" bind:tap="register">确认报名</button>

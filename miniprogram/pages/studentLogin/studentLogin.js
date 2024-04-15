@@ -2,6 +2,14 @@
 
 wx.cloud.init()
 
+function sleep(milliseconds) {
+ const date = Date.now();
+ let currentDate = null;
+ do {
+    currentDate = Date.now();
+ } while (currentDate - date < milliseconds);
+}
+
 const db = wx.cloud.database()
 Page({
 
@@ -134,4 +142,51 @@ Page({
       }
     )
   },
+
+  enrollInContest() {
+    this.setData({
+      enroll: true
+    })
+    console.log(this.data.permitted || this.data.enroll)
+  },
+
+  refreshName(e) {
+    this.setData({
+      name: e.detail.value
+    })
+  },
+
+  register() {
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.cloud.callFunction({
+      name: 'studentRegister',
+      data: {
+        name: this.data.name,
+        studentID: this.data.accountInfo,
+        password: this.data.password
+      }
+    }).then(
+      res => {
+        wx.hideLoading()
+        wx.showToast({
+          title: res.result.state,
+        })
+        sleep(1000);
+        wx.reLaunch({
+          url: '../index/index',
+        })
+        //console.log(res)
+      }
+    ).catch(
+      err => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '网络错误',
+        })
+        console.log(err)
+      }
+    )
+  }
 })

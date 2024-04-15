@@ -4,6 +4,15 @@ wx.cloud.init()
 
 const db = wx.cloud.database();
 
+
+function sleep(milliseconds) {
+ const date = Date.now();
+ let currentDate = null;
+ do {
+    currentDate = Date.now();
+ } while (currentDate - date < milliseconds);
+}
+
 Page({
 
   /**
@@ -31,6 +40,7 @@ Page({
         console.log(err);
         wx.showToast({
           title: '网络错误',
+          mask: true
         })
       }
     )
@@ -102,16 +112,14 @@ Page({
       res => {
         console.log(res);
         wx.hideLoading()
+        wx.showToast({
+          title: '取消成功',
+          mask: true
+        })
+        sleep(1000);
         wx.reLaunch({
           url: '../index/index',
         })
-        setTimeout(
-          res => {
-            wx.showToast({
-              title: '取消成功',
-            })
-          }, 1000
-        )
       }
     ).catch(
       err => {
@@ -119,6 +127,7 @@ Page({
         wx.hideLoading()
         wx.showToast({
           title: '取消失败',
+          mask: true
         })
       }
     )

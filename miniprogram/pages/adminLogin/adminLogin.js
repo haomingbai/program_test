@@ -185,6 +185,10 @@ Page({
 
   chooseExcel() {
     let that = this;
+    wx.showLoading({
+      title: '上传中',
+      mask: true
+    });
     wx.chooseMessageFile({
       count: 1,
       type: 'file'
@@ -195,6 +199,7 @@ Page({
         that.uploadExcel(path)
       }
     )
+    wx.hideLoading();
   },
 
   resolvStudentForm(fileId) {
@@ -309,6 +314,10 @@ Page({
 
   chooseCourseInfo() {
     let that = this;
+    wx.showLoading({
+      title: '上传中',
+      mask: true
+    });
     wx.chooseMessageFile({
       count: 1,
       type: 'file'
@@ -319,5 +328,6 @@ Page({
         that.uploadCourseInfo(path)
       }
     )
+    wx.hideLoading();
   }
 })
