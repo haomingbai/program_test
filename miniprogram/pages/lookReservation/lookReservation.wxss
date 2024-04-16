@@ -25,3 +25,13 @@
 page {
     overflow-y: auto !important;
 }
+
+.view-with-rounded-corners {
+  display: flexbox;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  border-radius: 10px;
+  margin: 0% auto;
+  margin-top: 10px;
+}

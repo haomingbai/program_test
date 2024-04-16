@@ -111,19 +111,18 @@ exports.main = async(event, context) => {
 
         //await promise;
         tasks.push(promise);
-
       }
       calc++;
     }
   }
 
-  await Promise.all(tasks).then(
+  let test = await Promise.all(tasks).then(
     res => {
-      return result;
+      return res;
     }
   ).catch(
-    res => {
-      return result;
+    err => {
+      return err;
     }
   )
   // 等待所有数据添加完成

@@ -7,11 +7,11 @@
       <view class="allUseDisplay" style="width: 100%;width: 750rpx;height: 40.05vh;flex-direction: column;">
         <image src="/../../res/logo.png" mode="widthFix" style="width:150rpx;margin-top: 8vh;" />
         <view class="text-white text-xl">
-          程序设计考试报名
+          {{testName}}
         </view>
         
         <view class="text-white margin-top-sm" >
-          Computer Teaching Center
+          {{organizationName}}
         </view>
         <image src="https://raw.githubusercontent.com/weilanwl/ColorUI/master/demo/images/wave.gif" mode="widthFix" style="width: 100%;mix-blend-mode:screen;z-index: 99;margin-top: -4vh;"/>
       </view>

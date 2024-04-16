@@ -48,7 +48,13 @@
 </form>
 
 <form hidden="{{!logined}}" wx:for="{{student}}" data-index="{{index}}">
-	<view class="cu-form-group">
+	<view class="cu-form-group" hidden="{{isSigned[index]}}">
+		<view class="title">{{item._id}} {{item.name}}</view>
+		<switch class="green" checked="{{isSigned[index]}}" data-index="{{index}}" bindchange="switchA"/>
+	</view>
+</form>
+<form hidden="{{!logined}}" wx:for="{{student}}" data-index="{{index}}">
+	<view class="cu-form-group" hidden="{{!isSigned[index]}}">
 		<view class="title">{{item._id}} {{item.name}}</view>
 		<switch class="green" checked="{{isSigned[index]}}" data-index="{{index}}" bindchange="switchA"/>
 	</view>

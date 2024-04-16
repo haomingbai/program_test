@@ -31,33 +31,10 @@
 </view>
 
 <!-- 比赛报名 -->
-<view wx:for="{{testInfo}}" class="padding text-center">
-  <view class="padding-xl radius shadow bg-white text-xxl" style="border-radius: 20rpx;padding-top: -1vh;">
-    <text bindtap="url" data-data="{{item._id}}" class="text-bold" style="color: black;font-size: 3vh;">{{item.courseID}}</text>
-    <view>
-      <view class="cu-form-group margin-top">
-        <view style="font-size: 2vh;">比赛时间</view>
-        <view style="font-size: 2vh;">
-          {{item.testTime}}
-        </view>
-      </view>
-      <!--<view class="cu-form-group">
-        <view style="font-size: 2vh;">时段</view>
-        <view style="font-size: 2vh;">
-          {{item.time_begin}} - {{item.time_end}}
-        </view>
-      </view>-->
-      <view class="cu-form-group">
-        <view style="font-size: 2vh;">地点</view>
-        <view style="font-size: 2vh;">
-          {{item.roomInfo}}
-        </view>
-      </view>
-    </view> 
-
-
-    <text bindtap="url" data-data="{{item._id}}" class="text-bold" style="color: black;font-size: 2vh;position:relative;left: 210rpx;border: 2rpx solid black;padding: 10rpx;border-radius: 20rpx;">查看详情<text class="cuIcon-left lg"></text></text>
-  </view>
+<view wx:for="{{testInfo}}" class="padding view-with-rounded-corners" style="background-image: url(../../res/cardBackground.png);">
+  <text style="color: white; font-size: 1.3em;"> {{item.courseID}} </text>
+  <button style="background-color: white; color: #3a3aff; padding: 3px; justify-content: left; margin-top: 10px; right: -50px;" data-data="{{item._id}}" bind:tap="url">查看详情</button>
+  <!--<image class="background-image" mode="aspectFill" src="../../res/cardBackground.png"></image>-->
 </view>
 
 <view wx:if="{{!myImessage.length&&flag}}" style="width: 100%;height: auto;display: flex;align-items: center;justify-content: center;margin-top: 5vh;">

@@ -54,6 +54,22 @@ Page({
         })
       }
     )
+    db.collection('content').doc('index').get().then(
+      res => {
+        this.setData({
+          organizationName: res.data.organizationName,
+          organizationShortName: res.data.organizationShortName,
+          testName: res.data.testName
+        })
+      }
+    ).catch(
+      err => {
+        wx.showToast({
+          title: '网络错误',
+        })
+        console.log(err);
+      }
+    )
 
   },
 

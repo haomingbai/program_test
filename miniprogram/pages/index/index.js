@@ -1,6 +1,11 @@
 // pages/showPage/showPage.js
 //const db = wx.cloud.database()
 var app = getApp();
+
+wx.cloud.init()
+
+const db = wx.cloud.database();
+
 Page({
 
   /**
@@ -39,6 +44,33 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    db.collection('content').doc('index').get().then(
+      res => {
+        this.setData({
+          organizationName: res.data.organizationName,
+          organizationShortName: res.data.organizationShortName,
+          testName: res.data.testName
+        })
+      }
+    ).catch(
+      err => {
+        wx.showToast({
+          title: '网络错误',
+        })
+        console.log(err);
+      }
+    );
+    db.collection('content').doc('showIndexButton').get().then(
+      res => {
+        console.log(res.data);
+        this.setData({
+          admin: res.data.admin,
+          enroll: res.data.enroll,
+          signin: res.data.signin,
+          teacher: res.data.teacher
+        });
+      }
+    )
   },
 
   /**
