@@ -1,31 +1,27 @@
-<view style="height: {{barInfo.barH}}px;;width: 750rpx;">
-</view>
-  <view class="cu-list menu sm-border card-menu"></view>
-  <view class="cu-list menu sm-border card-menu" wx:for="{{list}}" wx:if="{{!flag}}" data-testInfo="{{item}}" bind:tap="reserveTest">
-    <view class="cu-item">
-        <view class="content padding-tb-sm">
-            <view>
-                <text class="cuIcon-clothesfill text-blue margin-right-xs"></text> {{item.courseID}}
-            </view>
-            <view class="text-gray text-sm">
-                <text class="cuIcon-infofill margin-right-xs"></text> 考试地点：{{item.roomInfo}}
-            </view>
-            <view class="text-gray text-sm">
-                <text class="cuIcon-infofill margin-right-xs"></text> 考试时间：{{item.testTime}}
-            </view>
-        </view>
-    </view>
-    
-
-  </view>
-
-
-  <!-- 自定义头部修理一堆bug，哭了 -->
-  <view class="head-bar" style="height: {{barInfo.barH}}px; background-color: white; padding-top: {{barInfo.barTop}}px;width: 100%;position:fixed;top:0rpx!important;width: 750rpx;z-index: 999;">
+<view class="head-bar" style="height: {{barInfo.barH}}px; background-color: white; padding-top: {{barInfo.barTop}}px;width: 100%;position:fixed;top:0rpx!important;width: 750rpx;z-index: 999;">
     <view style="height: {{barInfo.barBtnH}}px; line-height: {{barInfo.barBtnH}}px; " class="up">
-      <view class="arrow" bindtap="toNavigate"></view>
-      <view style="margin-left: 3vh; font-size: 28rpx;color: black;">
-        考试报名
-      </view>
+        <view class="arrow" bind:tap="toNavigate"></view>
+    <view style="font-size: 28rpx;color: black;" bind:tap="toNavigate">
+        查看报名
     </view>
+    </view>
+</view>
+<text>\n</text>
+<view style="height: {{barInfo.barH}}px;"></view>
+<scroll-view scroll-y="1" style="overflow: hidden; white-space: nowrap; height: 80vh;">
+<view class="cu-list menu sm-border card-menu" wx:for="{{list}}" wx:if="{{!flag}}" data-testInfo="{{item}}" bind:tap="reserveTest">
+  <view class="cu-item" style="height: auto;">
+      <view class="content padding-tb-sm">
+          <view>
+              <text class="cuIcon-clothesfill text-blue margin-right-xs"></text> {{item.courseID}}
+          </view>
+          <view class="text-gray text-sm">
+              <text class="cuIcon-infofill margin-right-xs"></text> 考试地点：{{item.roomInfo}}
+          </view>
+          <view class="text-gray text-sm">
+              <text class="cuIcon-infofill margin-right-xs"></text> 考试时间：{{item.testTime}}
+          </view>
+      </view>
   </view>
+</view>
+</scroll-view>

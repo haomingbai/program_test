@@ -57,3 +57,31 @@
 page {
     overflow-y: auto !important;
 }
+
+.header {
+  height: 100px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #cccccc;
+  display: flex;
+  align-items: center;
+}
+
+.back {
+  width: 60px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.back-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.title {
+  flex: 1;
+  font-size: 24px;
+  color: #333333;
+  text-align: center;
+}
