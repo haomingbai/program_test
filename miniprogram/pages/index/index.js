@@ -44,6 +44,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     db.collection('content').doc('index').get().then(
       res => {
         this.setData({
@@ -51,9 +55,11 @@ Page({
           organizationShortName: res.data.organizationShortName,
           testName: res.data.testName
         })
+        wx.hideLoading()
       }
     ).catch(
       err => {
+        wx.hideLoading()
         wx.showToast({
           title: '网络错误',
         })

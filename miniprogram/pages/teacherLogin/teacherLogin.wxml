@@ -37,7 +37,7 @@
 		<input placeholder="" name="password" bindinput="refreshPassword" value="{{password}}"></input>
 	</view>
   <view class="cu-form-group">
-    <button class='cu-btn bg-green shadow' bind:tap="loginSystem">查询</button>
+    <button class='cu-btn bg-green shadow' bind:tap="loginSystem">验证权限</button>
   </view>
 </form>
 </scroll-view>

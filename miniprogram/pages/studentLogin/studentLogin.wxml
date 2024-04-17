@@ -16,14 +16,14 @@
 <text>\n</text>
 <button bind:tap="studentLogin" hidden="{{enroll}}">登录</button>
 <text>\n</text>
-<text class="" hidden="{{permitted || enroll}}">学生的密码，在通常状态下，是: 学号+班级号\n例如当学号为 "2018380197" 且班级为 "01101801" ，密码是：201838019701101801
+<text class="" hidden="{{permitted || enroll}}">{{reminder}}
 </text>
 
 <text>\n</text>
 
-<button hidden="{{enroll}}" style="color: red;" bind:tap="enrollInContest">报名比赛</button>
+<button hidden="{{enroll}}" style="color: red;" bind:tap="enrollInContest">注册比赛账户</button>
 
-<text hidden="{{!enroll}}">比赛是计算机实验技能大赛，密码设置之后务必记住！记不住联系技术支援！不要上课时间联系，他没空！</text>
+<text hidden="{{!enroll}}">{{registerReminder}}</text>
 
 
 <button hidden="{{!enroll}}" bind:tap="register">确认报名</button>

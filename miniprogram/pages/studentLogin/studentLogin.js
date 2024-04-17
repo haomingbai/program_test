@@ -27,6 +27,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
     const that = this;
     //console.log(that.data.accountInfo);
     let studentID = wx.getStorageSync('studentID');
@@ -34,18 +38,42 @@ Page({
     if(studentID){
       db.collection('student_reserve').doc(studentID).get().then(
         res => {
+          wx.hideLoading()
           wx.switchTab({
             url: '../personalInfo/personalInfo',
           })
         }
       ).catch(
         err => {
+          wx.hideLoading()
           wx.showToast({
             title: '网络错误',
           })
         }
       )
+    } else {
+      wx.hideLoading()
     }
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    db.collection('content').doc('text').get().then(
+      res => {
+        this.setData({
+          reminder: res.data.studentLoginReminder,
+          registerReminder: res.data.studentRegisterReminder
+        })
+        wx.hideLoading()
+      }
+    ).catch(
+      res => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '网络错误',
+        })
+      }
+    )
   },
 
   /**
