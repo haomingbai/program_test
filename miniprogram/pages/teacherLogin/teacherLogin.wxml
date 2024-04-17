@@ -12,7 +12,7 @@
 <scroll-view scroll-y="1" style="overflow: hidden; white-space: nowrap; height: 75vh;" hidden="{{logined}}">
 <view class="cu-list menu sm-border card-menu">
     <!-- 多行Item -->
-    <view class="cu-item" wx:for="{{course}}" data-index="{{item._id}}" data-value="{{item}}" bind:tap="inquireTest">
+    <view class="cu-item" wx:for="{{course}}" data-index="{{item._id}}" data-value="{{item}}" bind:tap="inquireTest" wx:if="{{!item.mask}}">
         <view class="content padding-tb-sm">
             <view>
                 <text class="cuIcon-clothesfill text-blue margin-right-xs"></text> {{item.courseID}}
@@ -42,10 +42,10 @@
 </form>
 </scroll-view>
 
-<scroll-view scroll-y="1" style="overflow: hidden; white-space: nowrap; height: 75vh;" hidden="{{!logined}}">
+<scroll-view scroll-y="1" style="overflow: hidden; white-space: nowrap; height: 85vh;" hidden="{{!logined}}">
 <view class="cu-list menu sm-border card-menu" hidden="{{!logined}}">
     <!-- 多行Item -->
-    <view class="cu-item" wx:for="{{course}}" data-index="{{item._id}}" data-value="{{item}}" bind:tap="inquireTest">
+    <view class="cu-item" wx:for="{{course}}" data-index="{{item._id}}" data-value="{{item}}" bind:tap="inquireTest" wx:if="{{!item.mask}}">
         <view class="content padding-tb-sm">
             <view>
                 <text class="cuIcon-clothesfill text-blue margin-right-xs"></text> {{item.courseID}}
@@ -82,5 +82,12 @@
 <text>\n</text>
 <button hidden="{{!logined}}" style="display: flex; justify-content: center; align-items: center;" class="cu-btn round bg-red shadow" bind:tap="getQrCode">生成考场二维码</button>
 <text>\n</text>
-<image src="{{qrcodeURL}}" hidden="{{!logined}}" show-menu-by-longpress="1" style="display: flex;justify-content: center;"></image>
+<view style="display: block; margin-left: 60rpx; margin-right: 60rpx;">
+<image src="{{qrcodeURL}}" hidden="{{!logined}}" show-menu-by-longpress="1" mode="aspectFit"></image>
+<view style="display: block;margin-left: 10rpx;margin-right: 10rpx;white-space: pre; font-size: 30rpx; text-align: center;">
+  {{course[0].courseID}}
+  {{course[0].testTime}}
+  {{course[0].roomInfo}}
+</view>
+</view>
 </scroll-view>

@@ -9,7 +9,7 @@
 <text>\n</text>
 <view style="height: {{barInfo.barH}}px;"></view>
 <scroll-view scroll-y="1" style="overflow: hidden; white-space: nowrap; height: 80vh;">
-<view class="cu-list menu sm-border card-menu" wx:for="{{list}}" wx:if="{{!flag}}" data-testInfo="{{item}}" bind:tap="reserveTest">
+<view class="cu-list menu sm-border card-menu" wx:for="{{list}}" wx:if="{{!item.mask}}" data-testInfo="{{item}}" bind:tap="reserveTest">
   <view class="cu-item" style="height: auto;">
       <view class="content padding-tb-sm">
           <view>

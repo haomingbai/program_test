@@ -20,8 +20,12 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    
+  onLoad: async function (options) {
+    const data = await db.collection('content').doc('showIndexButton').get();
+    this.setData({
+      dangerousFunction: data.data.dangerousFunction
+    })
+    console.log(data)
   },
 
   /**
@@ -329,5 +333,45 @@ Page({
       }
     )
     wx.hideLoading();
+  },
+
+  clearAll() {
+    wx.cloud.callFunction({
+      name: 'clearDataBase'
+    }).then(
+      res => {
+        wx.showToast({
+          title: res.result.success?'完成！':'失败！',
+        })
+        console.log(res)
+      }
+    ).catch(
+      err => {
+        wx.showToast({
+          title: '网络错误',
+        })
+        console.log(err)
+      }
+    )
+  },
+  
+  maskAll() {
+    wx.cloud.callFunction({
+      name: 'maskDataBase'
+    }).then(
+      res => {
+        wx.showToast({
+          title: res.result.success?'完成！':'失败！',
+        })
+        console.log(res)
+      }
+    ).catch(
+      err => {
+        wx.showToast({
+          title: '网络错误',
+        })
+        console.log(err)
+      }
+    )
   }
 })
