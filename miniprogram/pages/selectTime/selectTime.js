@@ -129,10 +129,15 @@ Page({
     }).then(
       res => {
         console.log(res);
-        wx.showToast({
-          title: '报名成功',
-          mask: true
-        })
+        if(res.result.success) {
+          wx.showToast({
+            title: '报名成功',
+          })
+        } else {
+          wx.showToast({
+            title: '报名失败',
+          })
+        }
         sleep(1000)
         wx.reLaunch({
           url: '../index/index',
