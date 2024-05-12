@@ -24,7 +24,7 @@ exports.main = async (event, context) => {
     for(var i = 0; i < originalData.student.length; i++){
       let row = [];
       row.push(originalData.student[i]._id);
-      row.push(originalData.student[i]._id);
+      row.push(originalData.student[i].name);
       row.push(originalData.isSigned[i]?'已签到':'未签到');
       sheetData.push(row)
     }
