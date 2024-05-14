@@ -63,8 +63,7 @@ exports.main = async(event, context) => {
               data: {
                 _id: row[0].trim()+row[1].trim()+row[2].trim(),
                 roomVolume: volume,
-                student: [],
-                isSigned: []
+                student: []
               }
             })
 
@@ -99,7 +98,6 @@ exports.main = async(event, context) => {
                 student: [],
                 roomVolume: volume,
                 _id: row[0].trim()+row[1].trim()+row[2].trim(),
-                isSigned: []
               }
             })
             t.push(adding);

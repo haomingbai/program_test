@@ -26,8 +26,7 @@ exports.main = async (event, context) => {
           student: _.pull({
             _id: studentID,
             name: student.data.name
-          }),
-          isSigned: _.pop()
+          })
         }
       });
       const courseID = test.data.courseID;

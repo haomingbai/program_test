@@ -66,15 +66,15 @@
 </form>
 
 <form hidden="{{!logined}}" wx:for="{{student}}" data-index="{{index}}">
-	<view class="cu-form-group" hidden="{{isSigned[index]}}">
+	<view class="cu-form-group" hidden="{{item.isSigned}}">
 		<view class="title">{{item._id}} {{item.name}}</view>
-		<switch class="green" checked="{{isSigned[index]}}" data-index="{{index}}" bindchange="switchA"/>
+		<switch class="green" checked="{{item.isSigned}}" data-index="{{index}}" bindchange="switchA"/>
 	</view>
 </form>
 <form hidden="{{!logined}}" wx:for="{{student}}" data-index="{{index}}">
-	<view class="cu-form-group" hidden="{{!isSigned[index]}}">
+	<view class="cu-form-group" hidden="{{!item.isSigned}}">
 		<view class="title">{{item._id}} {{item.name}}</view>
-		<switch class="green" checked="{{isSigned[index]}}" data-index="{{index}}" bindchange="switchA"/>
+		<switch class="green" checked="{{item.isSigned}}" data-index="{{index}}" bindchange="switchA"/>
 	</view>
 </form>
 <text>\n</text>

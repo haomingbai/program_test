@@ -14,9 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    logined: false,
-    isSigned: []
-
+    logined: false
   },
 
   /**
@@ -180,11 +178,9 @@ Page({
           //console.log(res)
           await db.collection('test_studentForm').doc(res.data.courseID+res.data.testTime+res.data.roomInfo).get().then(
             async res => {
-              let isSigned = await res.data.isSigned;
               let student = await res.data.student;
               console.log(student);
               that.setData({
-                isSigned: isSigned,
                 student: student
               })
             }
@@ -201,17 +197,17 @@ Page({
     const that = this;
     let dat = {
       index: e.currentTarget.dataset.index,
-      value: e.detail.value ? 1:0
+      value: e.detail.value ? true:false
     }
     let room = that.data.course[0].courseID + that.data.course[0].testTime + that.data.course[0].roomInfo
     db.collection('test_studentForm').doc(room).update({
       data: {
-        ['isSigned.'+[dat.index]]: dat.value
+        ['student.'+[dat.index]+".isSigned"]: dat.value
       }
     }).then(
       res => {
         that.setData({
-          ['isSigned['+dat.index+']']: dat.value
+          ['isSigned['+dat.index+'].isSigned']: dat.value
         })
       }
     ).catch(

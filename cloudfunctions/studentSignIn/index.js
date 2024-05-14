@@ -17,50 +17,34 @@ exports.main = async (event, context) => {
     const transaction = await db.startTransaction();
 
     //const content = await transaction.collection('test_studentForm').doc(roomID).get();
-    const content = await transaction.collection('test_studentForm').doc(roomID.trim()).get();
-
-
-    if(content){
-      let student = content.data.student;
-      let index = -1;
-      for(const location in student) {
-        if(student[location]._id == studentID) {
-          index = location;
-          break;
-        }
-      }
-
-
+    const content = await transaction.collection('test_studentForm').doc(roomID.trim()).get().then();
+    if(content.data) {
+      const index = content.data.student.findIndex(item => item._id == studentID);
       if(index != -1) {
-        const update = await transaction.collection('test_studentForm').doc(roomID).update({
+        const update = await transaction.collection('test_studentForm').doc(roomID.trim()).update({
           data: {
-            ['isSigned.'+[index]]: 1,
+            ['student.${index}.isSigned']: true 
           }
-        })
-
+        });
         await transaction.commit();
-
         return {
           success: true,
-          log: 'Successfully signed in'
+          log: "Success!"
         }
-
       } else {
         await transaction.rollback();
         return {
           success: false,
-          log: 'No Student whose id is ' + studentID
+          log: "No Student Found!"
         }
       }
-
     } else {
       await transaction.rollback();
       return {
         success: false,
-        log: "No Form Named " + roomID
+        log: "No Form Found!"
       }
     }
-
 
   } catch (e) {
     return {

@@ -29,8 +29,8 @@ exports.main = async (event,context) => {
           student: _.push({
             _id: student.data._id,
             name: student.data.name,
-          }),
-          isSigned: _.push(0)
+            isSigned: false
+          })
         }
       })
       const updateStudentReserve = await transaction.collection('student_reserve').doc(studentID).update({

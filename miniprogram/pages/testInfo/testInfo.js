@@ -43,6 +43,19 @@ Page({
           mask: true
         })
       }
+    );
+    db.collection('content').doc("text").get().then(
+      res => {
+        that.setData({
+          reminder: res.data.testInfoReminder
+        })
+      }
+    ).catch(
+      err => {
+        wx.showToast({
+          title: '网络错误',
+        })
+      }
     )
   },
 
@@ -117,9 +130,15 @@ Page({
           mask: true
         })
         sleep(1000);
-        wx.reLaunch({
-          url: '../index/index',
-        })
+        wx.switchTab({
+          url: '../lookReservation/lookReservation',
+        }).then(
+          e => {
+            var page = getCurrentPages().pop();
+            if (page == undefined || page == null) return;
+            page.onLoad();
+          }
+        )
       }
     ).catch(
       err => {

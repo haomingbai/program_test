@@ -72,6 +72,31 @@ Page({
         wx.showToast({
           title: '网络错误',
         })
+        wx.reLaunch({
+          url: '../index/index',
+        })
+      }
+    )
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    db.collection('content').doc('showIndexButton').get().then(
+      res => {
+        this.setData({
+          register: res.data.register
+        })
+        wx.hideLoading()
+      }
+    ).catch(
+      res => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '网络错误',
+        })
+        wx.reLaunch({
+          url: '../index/index',
+        })
       }
     )
   },
@@ -145,19 +170,28 @@ Page({
 
   studentLogin: function () {
     const that = this;
-    //console.log(that.data.accountInfo);
-    db.collection('student_reserve').doc(that.data.accountInfo.trim()).get().then(
+    console.log(that.data.accountInfo);
+    db.collection('student_reserve').where({
+      _id: that.data.accountInfo.trim()
+    }).get().then(
       res => {
-        if(res.data.password.trim() == that.data.password.trim()){
-          wx.setStorageSync('studentID',that.data.accountInfo.trim());
-          wx.setStorageSync('studentPassword',that.data.password.trim());
-          wx.setStorageSync('studentName',res.data.name.trim());
-          wx.switchTab({
-            url: '../personalInfo/personalInfo',
-          })
-        }else{
+        console.log(res);
+        if(res.data.length) {
+          if(res.data[0].password.trim() == that.data.password.trim()){
+            wx.setStorageSync('studentID',that.data.accountInfo.trim());
+            wx.setStorageSync('studentPassword',that.data.password.trim());
+            wx.setStorageSync('studentName',res.data[0].name.trim());
+            wx.switchTab({
+              url: '../personalInfo/personalInfo',
+            })
+          }else{
+            wx.showToast({
+              title: '密码错误',
+            })
+          }
+        } else {
           wx.showToast({
-            title: '登陆失败',
+            title: '无账户',
           })
         }
       }

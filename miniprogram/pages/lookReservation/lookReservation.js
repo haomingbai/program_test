@@ -88,7 +88,13 @@ Page({
     console.log(event);
     wx.switchTab({
       url: event.currentTarget.dataset.url,
-    })
+    }).then(
+      e => {
+        var page = getCurrentPages().pop();
+        if (page == undefined || page == null) return;
+        page.onLoad();
+      }
+    )
   },
 
   url: function (event) {

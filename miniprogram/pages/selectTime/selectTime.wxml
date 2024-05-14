@@ -9,17 +9,23 @@
 <text>\n</text>
 <view style="height: {{barInfo.barH}}px;"></view>
 <scroll-view scroll-y="1" style="overflow: hidden; white-space: nowrap; height: 80vh;">
-<view class="cu-list menu sm-border card-menu" wx:for="{{list}}" wx:if="{{!item.mask}}" data-testInfo="{{item}}" bind:tap="reserveTest">
+<view class="cu-list menu sm-border card-menu" wx:for="{{timeList}}" wx:if="{{(!item.mask)&&(!time)}}" data-testInfo="{{item}}" bind:tap="chooseTime">
   <view class="cu-item" style="height: auto;">
       <view class="content padding-tb-sm">
-          <view>
-              <text class="cuIcon-clothesfill text-blue margin-right-xs"></text> {{item.courseID}}
+          <view class="text-df">
+              <text class="cuIcon-timefill text-blue margin-right-lg"></text> {{item}}
           </view>
-          <view class="text-gray text-sm">
+      </view>
+  </view>
+</view>
+<view class="cu-list menu sm-border card-menu" wx:for="{{list}}" wx:if="{{(!item.mask)&&(time==item.testTime)}}" data-testInfo="{{item}}" bind:tap="reserveTest">
+  <view class="cu-item" style="height: auto;">
+      <view class="content padding-tb-sm">
+          <view class="text-xl">
+              <text class="cuIcon-clothesfill text-blue margin-right-lg"></text> {{item.courseID}}
+          </view>
+          <view class="text-gray text-df">
               <text class="cuIcon-infofill margin-right-xs"></text> 考试地点：{{item.roomInfo}}
-          </view>
-          <view class="text-gray text-sm">
-              <text class="cuIcon-infofill margin-right-xs"></text> 考试时间：{{item.testTime}}
           </view>
       </view>
   </view>

@@ -1,5 +1,5 @@
 <!--pages/studentLogin/studentLogin.wxml-->
-<form>	
+<form>
     <view class="cu-form-group margin-top" hidden="{{permitted}}">
 		<view class="title">学号</view>
 		<input placeholder="请输入10位学号" name="input" bindinput="refreshAccountInfo" value="{{accountInfo}}"></input>
@@ -14,16 +14,15 @@
 	</view>
 </form>
 <text>\n</text>
-<button bind:tap="studentLogin" hidden="{{enroll}}">登录</button>
+<button bind:tap="studentLogin" hidden="{{enroll}}" class="cu-btn round bg-blue" style="display: flex;align-items: center;">登录</button>
 <text>\n</text>
-<text class="" hidden="{{permitted || enroll}}">{{reminder}}
+<text class="" wx:if="{{(!permitted)&&(!enroll)}}" style="display: flex;padding: 20px;">{{reminder}}
 </text>
 
 <text>\n</text>
 
-<button hidden="{{enroll}}" style="color: red;" bind:tap="enrollInContest">注册比赛账户</button>
+<button hidden="{{enroll}}" bind:tap="enrollInContest" wx:if="{{register}}" class="cu-btn round bg-red" style="display: flex;align-items: center;">注册比赛账户</button>
 
-<text hidden="{{!enroll}}">{{registerReminder}}</text>
+<text wx:if="{{enroll}}" style="display: flex;padding: 20px;">{{registerReminder}}</text>
 
-
-<button hidden="{{!enroll}}" bind:tap="register">确认报名</button>
+<button hidden="{{!enroll}}" bind:tap="register" class="cu-btn round bg-purple" style="display: flex;align-items: center;">确认报名</button>

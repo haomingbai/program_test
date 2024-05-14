@@ -6,23 +6,24 @@
     <view class="cu-item">
         <view class="content">
             <text class="cuIcon-info text-grey"></text>
-            <text class="text-grey">{{testInfo.courseID}}</text>
+            <text class="text-grey">科目: {{testInfo.courseID}}</text>
         </view>
     </view>
     <view class="cu-item">
         <view class="content">
             <text class="cuIcon-time text-grey"></text>
-            <text class="text-grey">{{testInfo.testTime}}</text>
+            <text class="text-grey">时间: {{testInfo.testTime}}</text>
         </view>
     </view>
     <view class="cu-item">
         <view class="content">
             <text class="cuIcon-location text-grey"></text>
-            <text class="text-grey">{{testInfo.roomInfo}}</text>
+            <text class="text-grey">地点: {{testInfo.roomInfo}}</text>
         </view>
     </view>
 </view>
 <view class="cu-list menu sm-border card-menu">
-  <button class="cu-btn round bg-red shadow" style="float: right;" bind:tap="cancelReservation">取消报名</button>
+  <button class="cu-btn round bg-red shadow" style="display: flex;" bind:tap="cancelReservation">取消报名</button>
 </view>
+<text class="text-df" style="display: flex;padding: 20px;">\n {{reminder}} </text>
 

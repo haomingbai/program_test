@@ -1,3 +1,15 @@
 <!--pages/studentSignin/studentSignin.wxml-->
+<form>
+    <view class="cu-form-group margin-top" hidden="{{logined}}">
+		<view class="title">学号</view>
+		<input placeholder="请输入10位学号" name="input" bindinput="refreshAccountInfo" value="{{accountInfo}}"></input>
+	</view>
+	<view class="cu-form-group" hidden="{{logined}}">
+		<view class="title">密码</view>
+		<input placeholder="请输入密码" name="input" bindinput="refreshPassword" value="{{password}}"></input>
+	</view>
+</form>
 <text>\n</text>
-<button bind:tap="signin">扫码签到</button>
+<button bind:tap="studentLogin" hidden="{{logined}}" class="cu-btn round bg-blue" style="display: flex;align-items: center;">登录</button>
+<text>\n</text>
+<button class="cu-btn round bg-purple" style="display: flex;" bind:tap="signin" wx:if="{{logined}}">扫码签到</button>

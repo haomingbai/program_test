@@ -43,6 +43,15 @@ Page({
           that.setData({
             list: f
           })
+          var timeList = [];
+          f.forEach(element => {
+            if(timeList.indexOf(element.testTime) == -1) {
+              timeList.push(element.testTime);
+            }
+          });
+          that.setData({
+            timeList: timeList
+          })
         } else {
           wx.showToast({
             title: '错误',
@@ -108,6 +117,13 @@ Page({
     })
   },
 
+  chooseTime: function (e) {
+    console.log(e);
+    this.setData({
+      time: e.currentTarget.dataset.testinfo
+    })
+  },
+
   reserveTest: function (event) {
     //console.log(event.currentTarget.dataset.testinfo);
     wx.showLoading({
@@ -139,9 +155,15 @@ Page({
           })
         }
         sleep(1000)
-        wx.reLaunch({
-          url: '../index/index',
-        })
+        wx.switchTab({
+          url: '../lookReservation/lookReservation',
+        }).then(
+          e => {
+            var page = getCurrentPages().pop();
+            if (page == undefined || page == null) return;
+            page.onLoad();
+          }
+        )
         wx.hideLoading()
       }
     ).catch(
