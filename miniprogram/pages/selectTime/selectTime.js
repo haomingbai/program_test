@@ -151,7 +151,7 @@ Page({
           })
         } else {
           wx.showToast({
-            title: '报名失败',
+            title: '考场已满',
           })
         }
         sleep(1000)
