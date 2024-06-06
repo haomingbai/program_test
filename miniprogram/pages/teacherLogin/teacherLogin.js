@@ -136,6 +136,10 @@ Page({
 
   fetchCourse() {
     let that = this;
+    wx.showLoading({
+      title: '请稍候',
+      mask: true
+    })
     wx.cloud.callFunction({
       name: 'getCourse',
       data: {
@@ -147,10 +151,15 @@ Page({
           course: res.result,
         })
         console.log(res)
+        wx.hideLoading();
       }
     ).catch(
       err => {
         console.log(err)
+        wx.hideLoading();
+        wx.showToast({
+          title: '网络错误',
+        })
       }
     )
   },
@@ -176,6 +185,10 @@ Page({
             logined: true,
           })
           //console.log(res)
+          wx.showLoading({
+            title: '请稍候',
+            mask: true
+          })
           await db.collection('test_studentForm').doc(res.data.courseID+res.data.testTime+res.data.roomInfo).get().then(
             async res => {
               let student = await res.data.student;
@@ -185,6 +198,7 @@ Page({
               })
             }
           )
+          wx.hideLoading();
         } else {
           wx.showToast({
             title: '用户名或密码错误',
@@ -212,6 +226,7 @@ Page({
       }
     ).catch(
       err => {
+        console.log(err);
         wx.showToast({
           title: '网络错误',
         })
@@ -219,6 +234,10 @@ Page({
     )
   },
   getFile() {
+    wx.showLoading({
+      title: '请稍候',
+      mask: true
+    })
     const that = this;
     const room = that.data.course[0].courseID + that.data.course[0].testTime + that.data.course[0].roomInfo;
     wx.cloud.callFunction({
@@ -229,6 +248,7 @@ Page({
     }).then(
       async res => {
         let fileID = res.result.fileID;
+        console.log(res);
         await wx.cloud.downloadFile({
           fileID: fileID
         }).then(
@@ -242,6 +262,16 @@ Page({
         )
         wx.cloud.deleteFile({
           fileList: [fileID]
+        })
+        wx.hideLoading();
+      }
+    ).catch(
+      err => {
+        console.log(err);
+        wx.hideLoading();
+        wx.showToast({
+          title: '获取超时',
+          mask: true
         })
       }
     )

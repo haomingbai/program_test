@@ -22,13 +22,17 @@ exports.main = async (event, context) => {
     //return base.data
     let sheetData = [];
     
-    sheetData.push([testInfo,"",""])
+    sheetData.push([testInfo,"","",""])
     
-    sheetData.push(["学号","姓名","签到状态"])
-    for(var i = 0,dat; i < originalData.student.length; i++){
+    sheetData.push(["学号","姓名","班级","签到状态"])
+    for(var i = 0,dat,cl; i < originalData.student.length; i++){
       let row = [];
       row.push(originalData.student[i]._id);
       row.push(originalData.student[i].name);
+      //Pay attention that var cl should be deleted when coping with the enrollment of competition, and the related vars shold be modified.
+      cl = await db.collection('student_reserve').doc(originalData.student[i]._id).get();
+      cl = cl.data.password.substring(10);
+      row.push(cl);
       if(originalData.student[i].isSigned) {
         dat = '已签到';
       }else {
