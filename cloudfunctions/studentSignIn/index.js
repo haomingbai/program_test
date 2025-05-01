@@ -21,9 +21,10 @@ exports.main = async (event, context) => {
     if(content.data) {
       const index = content.data.student.findIndex(item => item._id == studentID);
       if(index != -1) {
+        const updateField = `student.${index}.isSigned`;
         const update = await transaction.collection('test_studentForm').doc(roomID.trim()).update({
           data: {
-            ['student.${index}.isSigned']: true 
+            [updateField]: true 
           }
         });
         await transaction.commit();
