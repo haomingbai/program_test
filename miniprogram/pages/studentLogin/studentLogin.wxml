@@ -1,28 +1,41 @@
-<!--pages/studentLogin/studentLogin.wxml-->
 <form>
     <view class="cu-form-group margin-top" hidden="{{permitted}}">
-		<view class="title">学号</view>
-		<input placeholder="请输入10位学号" name="input" bindinput="refreshAccountInfo" value="{{accountInfo}}"></input>
-	</view>
-	<view class="cu-form-group" hidden="{{permitted || !enroll}}">
-		<view class="title">名字</view>
-		<input placeholder="请输入名字，仔细核对不要输错！" bindinput="refreshName" value="{{name}}" bindinput="refreshName"></input>
-	</view>
-	<view class="cu-form-group" hidden="{{permitted}}">
-		<view class="title">密码</view>
-		<input placeholder="请输入密码" name="input" bindinput="refreshPassword" value="{{password}}"></input>
-	</view>
+        <view class="title">学号</view>
+        <input placeholder="请输入10位学号" name="input" bindinput="refreshAccountInfo" value="{{accountInfo}}"></input>
+    </view>
+    <view class="cu-form-group" hidden="{{permitted || !enroll}}">
+        <view class="title">名字</view>
+        <input placeholder="请输入名字，仔细核对不要输错！" bindinput="refreshName" value="{{name}}"></input>
+    </view>
+    <view class="cu-form-group" hidden="{{permitted}}">
+        <view class="title">密码</view>
+        <input placeholder="请输入密码" name="input" bindinput="refreshPassword" value="{{password}}"></input>
+    </view>
+
+    <!-- 统一认证登陆，已移至此处并加下划线 -->
+    <view class="unified-login" bind:tap="unifiedLogin" hidden="{{enroll}}">
+        统一认证登陆
+    </view>
+
+    <text>\n</text>
+    <button bind:tap="studentLogin" hidden="{{enroll}}" class="cu-btn round bg-blue" style="display: flex;align-items: center;">
+        登录
+    </button>
+
+    <text>\n</text>
+    <text wx:if="{{(!permitted)&&(!enroll)}}" style="display: flex;padding: 20px;">
+        {{reminder}}
+    </text>
+
+    <button hidden="{{enroll}}" bind:tap="enrollInContest" wx:if="{{register}}" class="cu-btn round bg-red" style="display: flex;align-items: center;">
+        注册比赛账户
+    </button>
+
+    <text wx:if="{{enroll}}" style="display: flex;padding: 20px;">
+        {{registerReminder}}
+    </text>
+
+    <button hidden="{{!enroll}}" bind:tap="register" class="cu-btn round bg-purple" style="display: flex;align-items: center;">
+        确认报名
+    </button>
 </form>
-<text>\n</text>
-<button bind:tap="studentLogin" hidden="{{enroll}}" class="cu-btn round bg-blue" style="display: flex;align-items: center;">登录</button>
-<text>\n</text>
-<text class="" wx:if="{{(!permitted)&&(!enroll)}}" style="display: flex;padding: 20px;">{{reminder}}
-</text>
-
-<text>\n</text>
-
-<button hidden="{{enroll}}" bind:tap="enrollInContest" wx:if="{{register}}" class="cu-btn round bg-red" style="display: flex;align-items: center;">注册比赛账户</button>
-
-<text wx:if="{{enroll}}" style="display: flex;padding: 20px;">{{registerReminder}}</text>
-
-<button hidden="{{!enroll}}" bind:tap="register" class="cu-btn round bg-purple" style="display: flex;align-items: center;">确认报名</button>

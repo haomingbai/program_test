@@ -1,5 +1,5 @@
 {
-  "name": "update_test_partInfo",
+  "name": "cas",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,8 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-xlsx": "^0.23.0",
-    "wx-server-sdk": "^2.5.3",
-    "xlsx": "^0.18.5"
+    "cas": "^0.0.5",
+    "node-cas": "^1.0.1"
   }
 }

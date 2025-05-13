@@ -37,7 +37,7 @@ Page({
       }
     }).then(
       async res => {
-        let f = await res.result;
+        let f = res.result;
         console.log(f);
         if(f.length){
           that.setData({

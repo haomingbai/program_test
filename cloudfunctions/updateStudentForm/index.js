@@ -55,7 +55,9 @@ exports.main = async(event, context) => {
                 name: row[1],
                 password: row[2],
                 selectedCourses: [],
-                roomID: []
+                roomID: [],
+                identityType: "本科生",
+                school: row[3]
               }
             })
             await adding;

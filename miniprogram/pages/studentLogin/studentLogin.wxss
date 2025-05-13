@@ -1,1 +1,13 @@
 /* pages/studentLogin/studentLogin.wxss */
+
+/* studentLogin.wxss */
+.unified-login {
+  /* text-align: center; */
+  margin: 16px 0;
+  font-size: 16px;
+  text-decoration: underline;
+  color: #1a73e8; /* 可根据主题色调整 */
+}
+.unified-login:active {
+  opacity: 0.6; /* 点击反馈 */
+}

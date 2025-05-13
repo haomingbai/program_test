@@ -20,7 +20,8 @@ Page({
     password: "",
     account:{},
     accountInfo:"",
-
+    studentID: "",
+    attributes: {}
   },
 
   /**
@@ -250,5 +251,44 @@ Page({
         console.log(err)
       }
     )
+  },
+
+  unifiedLogin: function(event) {
+    console.log("Navigate to UIS login page...");
+    wx.navigateTo({
+      url: '../uis/uis',
+    }).then(res => {
+      console.log(res);
+    }).catch(
+      err => {
+        console.log(err);
+      }
+    )
+  },
+
+  nextStep: function() {
+    wx.hideLoading();
+    console.log(this.data.studentID);
+    console.log(this.data.attributes);
+    wx.cloud.callFunction({
+      name: "updateStudentPersonalInfo",
+      data: {
+        studentID: this.data.studentID,
+        school: this.data.attributes.organizationname[0],
+        identityType: this.data.attributes.identitytypename[0],
+        name: this.data.attributes.name[0],
+      }
+    }).then(
+      res => {
+        console.log(res);
+      }
+    ).catch(
+      err => {
+        console.log(err);
+      }
+    )
+    wx.setStorageSync('studentID', this.data.studentID);
+    wx.setStorageSync('studentName', this.data.attributes.name[0]);
+    this.onLoad();
   }
 })

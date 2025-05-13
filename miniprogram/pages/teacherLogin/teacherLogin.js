@@ -141,7 +141,7 @@ Page({
       mask: true
     })
     wx.cloud.callFunction({
-      name: 'getCourse',
+      name: 'getAllCourse',
       data: {
         courseID: that.data.courseID
       }

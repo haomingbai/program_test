@@ -36,7 +36,9 @@ exports.main = async (event, context) => {
         name: name,
         password: password,
         roomID: [],
-        selectedCourses: ['程序技能大赛']
+        selectedCourses: ['程序技能大赛'],
+        identityType: "本科生",
+        school: ""
       }
     })
     result.state = "报名成功"

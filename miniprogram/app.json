@@ -15,7 +15,8 @@
     "pages/backStageInfo/backStageInfo",
     "pages/testInfo/testInfo",
     "pages/teacherLogin/teacherLogin",
-    "pages/studentSignin/studentSignin"
+    "pages/studentSignin/studentSignin",
+    "pages/uis/uis"
   ],
   "tabBar": {
     "custom": true,

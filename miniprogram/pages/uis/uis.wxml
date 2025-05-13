@@ -1,0 +1,1 @@
+<web-view src="https://uis.nwpu.edu.cn/cas/login?service=https://wzfftx.qxxpz.top/aoxiang.html" bindmessage="webMsg"></web-view>
