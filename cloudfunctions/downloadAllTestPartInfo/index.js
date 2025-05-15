@@ -13,11 +13,15 @@ exports.main = async (event, context) => {
     await cloud.callFunction({
       name: "downloadTestPartInfo",
       data: {
-        testInfo: x.course[0].courseID + x.course[0].testTime + x.course[0].roomInfo
+        testInfo: x.courseID.trim() + x.testTime.trim() + x.roomInfo.trim()
       }
     }).then(
       res => {
         result.push(res.result.fileID);
+      }
+    ).catch(
+      err => {
+        console.log(err);
       }
     )
   }

@@ -11,8 +11,8 @@ Page({
    */
   data: {
     password: "",
-    account:{},
-    loginResult:"",
+    account: {},
+    loginResult: "",
     permitted: false,
     necessaryInformation: ""
   },
@@ -32,86 +32,80 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    
+
   },
 
-  refreshAccountInfo (x) {
+  refreshAccountInfo(x) {
     let i = x.detail.value;
-    this.setData (
-      {
-        accountInfo: i.trim()
-      }
-    );
+    this.setData({
+      accountInfo: i.trim()
+    });
   },
-  refreshPassword (x) {
+  refreshPassword(x) {
     let i = x.detail.value;
-    this.setData (
-      {
-        password: i.trim()
-      }
-    );
+    this.setData({
+      password: i.trim()
+    });
   },
 
   adminLogin: function () {
     const that = this;
     //console.log(that.data.accountInfo);
-    db.collection("admin_insertForm").where(
-      {
-        accountInfo: that.data.accountInfo
-      }
-    ).get().then(
+    db.collection("admin_insertForm").where({
+      accountInfo: that.data.accountInfo
+    }).get().then(
       res => {
         //console.log(res.data)
-        if(res.data.length == 0){
+        if (res.data.length == 0) {
           that.setData({
             loginResult: "登陆失败，请检查账户密码或者咨询技术人员"
           })
           wx.showToast({
             title: '登陆失败',
           })
-        }else if(res.data[0].password == that.data.password){
+        } else if (res.data[0].password == that.data.password) {
           that.setData({
             loginResult: "登陆成功，请享用！",
             permitted: true
@@ -119,7 +113,7 @@ Page({
           wx.showToast({
             title: '登陆成功',
           })
-        }else{
+        } else {
           that.setData({
             loginResult: "登陆失败，请检查账户密码或者咨询技术人员"
           })
@@ -142,28 +136,28 @@ Page({
   resolvExcel(fileId) {
     wx.cloud.callFunction({
       name: "update_test_partInfo",
-      data:{
+      data: {
         fileID: fileId
       }
     }).then(
       res => {
-        console.log("succeed",res)
+        console.log("succeed", res)
 
         this.setData({
           necessaryInformation: res.result
         })
 
         wx.cloud.deleteFile({
-          fileList:[fileId]
+          fileList: [fileId]
         })
-        
+
       }
     ).catch(
       res => {
-        console.log("Fail",res)
+        console.log("Fail", res)
 
         wx.cloud.deleteFile({
-          fileList:[fileId]
+          fileList: [fileId]
         })
 
       }
@@ -177,12 +171,12 @@ Page({
       filePath: path
     }).then(
       res => {
-        console.log("Successfully Update",res);
+        console.log("Successfully Update", res);
         that.resolvExcel(res.fileID);
       }
     ).catch(
       err => {
-        console.log("Upload Failed",err)
+        console.log("Upload Failed", err)
       }
     )
   },
@@ -199,7 +193,7 @@ Page({
     }).then(
       res => {
         let path = res.tempFiles[0].path;
-        console.log("Successfully Chosen Files",path)
+        console.log("Successfully Chosen Files", path)
         that.uploadExcel(path)
       }
     )
@@ -209,28 +203,28 @@ Page({
   resolvStudentForm(fileId) {
     wx.cloud.callFunction({
       name: "uploadCourseInfo",
-      data:{
+      data: {
         fileID: fileId
       }
     }).then(
       res => {
-        console.log("succeed",res)
+        console.log("succeed", res)
 
         this.setData({
           necessaryInformation: res.result
         })
 
         wx.cloud.deleteFile({
-          fileList:[fileId]
+          fileList: [fileId]
         })
-        
+
       }
     ).catch(
       res => {
-        console.log("Fail",res)
+        console.log("Fail", res)
 
         wx.cloud.deleteFile({
-          fileList:[fileId]
+          fileList: [fileId]
         })
 
       }
@@ -244,12 +238,12 @@ Page({
       filePath: path
     }).then(
       res => {
-        console.log("Successfully Update",res);
+        console.log("Successfully Update", res);
         that.resolvStudentForm(res.fileID);
       }
     ).catch(
       err => {
-        console.log("Upload Failed",err)
+        console.log("Upload Failed", err)
       }
     )
   },
@@ -262,7 +256,7 @@ Page({
     }).then(
       res => {
         let path = res.tempFiles[0].path;
-        console.log("Successfully Chosen Files",path)
+        console.log("Successfully Chosen Files", path)
         that.uploadStudentForm(path)
       }
     )
@@ -271,28 +265,28 @@ Page({
   resolvCourseInfo(fileId) {
     wx.cloud.callFunction({
       name: "update_test_partInfo",
-      data:{
+      data: {
         fileID: fileId
       }
     }).then(
       res => {
-        console.log("succeed",res)
+        console.log("succeed", res)
 
         this.setData({
           necessaryInformation: res.result
         })
 
         wx.cloud.deleteFile({
-          fileList:[fileId]
+          fileList: [fileId]
         })
-        
+
       }
     ).catch(
       res => {
-        console.log("Fail",res)
+        console.log("Fail", res)
 
         wx.cloud.deleteFile({
-          fileList:[fileId]
+          fileList: [fileId]
         })
 
       }
@@ -306,12 +300,12 @@ Page({
       filePath: path
     }).then(
       res => {
-        console.log("Successfully Update",res);
+        console.log("Successfully Update", res);
         that.resolvCourseInfo(res.fileID);
       }
     ).catch(
       err => {
-        console.log("Upload Failed",err)
+        console.log("Upload Failed", err)
       }
     )
   },
@@ -328,7 +322,7 @@ Page({
     }).then(
       res => {
         let path = res.tempFiles[0].path;
-        console.log("Successfully Chosen Files",path)
+        console.log("Successfully Chosen Files", path)
         that.uploadCourseInfo(path)
       }
     )
@@ -341,7 +335,7 @@ Page({
     }).then(
       res => {
         wx.showToast({
-          title: res.result.success?'完成！':'失败！',
+          title: res.result.success ? '完成！' : '失败！',
         })
         console.log(res)
       }
@@ -354,14 +348,14 @@ Page({
       }
     )
   },
-  
+
   maskAll() {
     wx.cloud.callFunction({
       name: 'maskDataBase'
     }).then(
       res => {
         wx.showToast({
-          title: res.result.success?'完成！':'失败！',
+          title: res.result.success ? '完成！' : '失败！',
         })
         console.log(res)
       }
@@ -373,5 +367,36 @@ Page({
         console.log(err)
       }
     )
-  }
+  },
+
+  getUnreserved: function (event) {
+    wx.showLoading({
+      title: '请稍候',
+    })
+    wx.cloud.callFunction({
+      name: 'getStudentUnreserved',
+      data: {}
+    }).then(
+      async res => {
+        const fileID = res.result.fileID;
+        await wx.cloud.downloadFile({
+          fileID: fileID
+        }).then(async result => {
+          let filePath = result.tempFilePath;
+          wx.openDocument({
+            filePath: filePath,
+            showMenu: true
+          })
+        })
+        wx.cloud.deleteFile({
+          fileList: [fileID]
+        })
+      }
+    ).catch(
+      err => {
+        console.log(err);
+      }
+    )
+    wx.hideLoading();
+  },
 })
