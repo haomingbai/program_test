@@ -38,6 +38,7 @@ exports.main = async (event, context) => {
           selectedCourses: [],
           school: school,
           password: "",
+          classID: "",
           identityType: identityType
         }
       });

@@ -1,7 +1,9 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
-cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
+cloud.init({
+  env: cloud.DYNAMIC_CURRENT_ENV
+}) // 使用当前云环境
 
 const xlsx = require('node-xlsx');
 
@@ -13,19 +15,19 @@ const _ = db.command
 
 //传入testInfo参数作为考场的_id
 exports.main = async (event, context) => {
-  try{
-    
+  try {
+
     var testInfo = event.testInfo
-    
+
     const base = await db.collection('test_studentForm').doc(testInfo).get()
     const originalData = base.data;
     //return base.data
     let sheetData = [];
-    
-    sheetData.push([testInfo,"","",""])
-    
-    sheetData.push(["学号","姓名", "学院","班级","签到状态"])
-    for(var i = 0,dat,cl; i < originalData.student.length; i++){
+
+    sheetData.push([testInfo, "", "", ""])
+
+    sheetData.push(["学号", "姓名", "学院", "班级", "签到状态"])
+    for (var i = 0, dat, cl; i < originalData.student.length; i++) {
       let row = [];
       row.push(originalData.student[i]._id);
       row.push(originalData.student[i].name);
@@ -38,14 +40,19 @@ exports.main = async (event, context) => {
       } else {
         row.push("");
       }
-      
+
       // 班级
-      let classTemp = cl.data.password.substring(10);
-      row.push(classTemp);
-      
-      if(originalData.student[i].isSigned) {
+      if (cl.data.classID) {
+        let classTemp = cl.data.classID;
+        row.push(classTemp);
+      } else {
+        let classTemp = cl.data.password.substring(10);
+        row.push(classTemp);
+      }
+
+      if (originalData.student[i].isSigned) {
         dat = '已签到';
-      }else {
+      } else {
         dat = '未签到';
       }
       row.push(dat);
@@ -53,7 +60,7 @@ exports.main = async (event, context) => {
       sheetData.push(row);
     }
     //if(!sheetData){throw sheetData;}
-    
+
     var buffer = xlsx.build([{
       name: 'sheet1',
       data: sheetData
@@ -64,7 +71,7 @@ exports.main = async (event, context) => {
       cloudPath: path + '.xlsx',
       fileContent: buffer
     })
-    
+
     return result
   } catch (e) {
     return {

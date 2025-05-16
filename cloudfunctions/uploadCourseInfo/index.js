@@ -67,6 +67,7 @@ exports.main = async (event, context) => {
           } else {
             let name = row[2].trim(),
               password = row[1].trim() + row[6].trim(),
+              classId = row[6].trim(),
               selectedCourses = [courseID],
               school = row[4].trim();
             await db.collection('student_reserve').add({
@@ -77,7 +78,8 @@ exports.main = async (event, context) => {
                 selectedCourses: selectedCourses,
                 roomID: [],
                 school: school,
-                identityType: "本科生"
+                identityType: "本科生",
+                classID : classId
               }
             })
           }
