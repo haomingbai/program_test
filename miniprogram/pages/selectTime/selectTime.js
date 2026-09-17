@@ -20,6 +20,7 @@ Page({
    */
   data: {
     barInfo: app.globalData.barInfo,
+    reserving: false,
   },
 
   /**
@@ -125,6 +126,8 @@ Page({
   },
 
   reserveTest: function (event) {
+    if (this.data.reserving) return;
+    this.setData({ reserving: true });
     //console.log(event.currentTarget.dataset.testinfo);
     wx.showLoading({
       title: '报名中',
@@ -149,21 +152,25 @@ Page({
           wx.showToast({
             title: '报名成功',
           })
+          sleep(1000)
+          wx.switchTab({
+            url: '../lookReservation/lookReservation',
+          }).then(
+            e => {
+              var page = getCurrentPages().pop();
+              if (page == undefined || page == null) return;
+              page.onLoad();
+            }
+          )
         } else {
-          wx.showToast({
-            title: '考场已满',
-          })
-        }
-        sleep(1000)
-        wx.switchTab({
-          url: '../lookReservation/lookReservation',
-        }).then(
-          e => {
-            var page = getCurrentPages().pop();
-            if (page == undefined || page == null) return;
-            page.onLoad();
+          const msg = res.result.log || '';
+          if (msg.indexOf('Already enrolled') !== -1) {
+            wx.showToast({ title: '请勿重复报名', icon: 'none' });
+          } else {
+            wx.showToast({ title: '考场已满' });
           }
-        )
+          this.setData({ reserving: false });
+        }
         wx.hideLoading()
       }
     ).catch(
@@ -174,6 +181,7 @@ Page({
           title: '报名失败',
           mask: true
         })
+        this.setData({ reserving: false });
       }
     )
   },

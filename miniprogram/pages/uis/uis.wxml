@@ -1,1 +1,35 @@
-<web-view src="https://uis.nwpu.edu.cn/cas/login?service=https://wzfftx.qxxpz.top/aoxiang.html" bindmessage="webMsg"></web-view>
+<view class="container">
+  <view class="card">
+    <view class="header">
+      <view class="title">统一身份认证</view>
+      <view class="subtitle">西北工业大学</view>
+    </view>
+
+    <view wx:if="{{!showMfa}}">
+      <view class="input-group">
+        <view class="input-label">用户名</view>
+        <input class="input-field" placeholder="请输入用户名" value="{{username}}" bindinput="onUsernameInput"/>
+      </view>
+      <view class="input-group">
+        <view class="input-label">密码</view>
+        <input class="input-field" type="password" placeholder="请输入密码" password="{{true}}" value="{{password}}" bindinput="onPasswordInput"/>
+      </view>
+      <button class="primary-btn" bindtap="handleLogin" loading="{{loading}}" disabled="{{loading}}">登 录</button>
+    </view>
+
+    <view wx:if="{{showMfa}}">
+      <view class="mfa-info">
+        <view class="mfa-label">安全手机验证</view>
+        <view class="mfa-desc">已向安全手机 <text class="mfa-phone">{{phone}}</text> 发送4位验证码</view>
+      </view>
+      <view class="input-group">
+        <input class="input-field code-input" type="number" placeholder="请输入4位验证码" maxlength="4" value="{{smsCode}}" bindinput="onSmsCodeInput" focus="{{true}}"/>
+      </view>
+      <button class="primary-btn" bindtap="handleVerifySms" loading="{{loading}}" disabled="{{loading}}">验 证</button>
+      <view class="footer-links">
+        <text class="link {{resendCooldown > 0 ? 'link-disabled' : ''}}" bindtap="handleResendSms">{{resendCooldown > 0 ? resendCooldown + 's 后重发' : '重新发送验证码'}}</text>
+        <text class="link" bindtap="handleBack">返回上一步</text>
+      </view>
+    </view>
+  </view>
+</view>

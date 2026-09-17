@@ -13,6 +13,29 @@ Page({
    */
   data: {
     barInfo: app.globalData.barInfo,
+    allowReservation: false,
+  },
+
+  async refreshShowIndexButton() {
+    try {
+      const res = await db.collection('content').doc('showIndexButton').get();
+      const allowReservationRaw = res?.data?.allowReservation;
+      const allowReservation =
+        allowReservationRaw === 1 ||
+        allowReservationRaw === true ||
+        allowReservationRaw === '1';
+      this.setData({
+        allowReservation,
+      });
+    } catch (err) {
+      console.log(err);
+      this.setData({
+        allowReservation: false,
+      });
+      wx.showToast({
+        title: '网络错误',
+      });
+    }
   },
 
   /**
@@ -84,7 +107,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    this.refreshShowIndexButton();
   },
 
   /**
@@ -136,6 +159,7 @@ Page({
   },
   
   changeStats() {
+    this.refreshShowIndexButton();
     this.onLoad();
   },
 

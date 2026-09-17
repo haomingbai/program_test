@@ -1,1 +1,7 @@
-*/*/node_modules
+# 云函数依赖需要随项目一起打包推送,故不再忽略 */*/node_modules
+
+# Python 虚拟环境
+uis_reference/venv/
+
+# 本地凭据文件,不纳入版本管理
+uis_reference/key.txt

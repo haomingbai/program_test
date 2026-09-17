@@ -16,22 +16,15 @@ exports.main = async (event, context) => {
   var result;
   var lst = [];
   do {
-    result = await db.collection("student_reserve").where(
-        _.expr(
-          _.lt(
-            [
-              // 获取 roomID 数组长度
-              _.size('$roomID'),
-              // 获取 selectedCourses 数组长度
-              _.size('$selectedCourses')
-            ]
-          )
-        )
-      )
+    // 先批量获取数据，随后在应用层进行健壮的存在性与长度判断
+    result = await db.collection("student_reserve")
       .skip(SKIP * cnt).limit(SKIP).get();
     lst = lst.concat(result.data);
     cnt++;
   } while (result.data.length == SKIP);
+
+  // 过滤：在表达式计算前先确保相关元素存在且为数组
+  lst = lst.filter(e => Array.isArray(e.selectedCourses) && Array.isArray(e.roomID) && e.roomID.length < e.selectedCourses.length);
 
   lst.sort((a, b) => {
     if (a.school < b.school) {
@@ -49,7 +42,9 @@ exports.main = async (event, context) => {
     ["姓名", "学号", "学院", "未预约科目数量"]
   ];
   for (var elem of lst) {
-    sheetData.push([elem.name, elem._id, elem.school, elem.selectedCourses.length - elem.roomID.length]);
+    const selectedLen = Array.isArray(elem.selectedCourses) ? elem.selectedCourses.length : 0;
+    const roomLen = Array.isArray(elem.roomID) ? elem.roomID.length : 0;
+    sheetData.push([elem.name || '', elem._id || '', elem.school || '', selectedLen - roomLen]);
   }
   const buff = await xlsx.build([{
     name: "nreservedStus",

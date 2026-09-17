@@ -19,7 +19,27 @@ Page({
    * 页面的初始数据
    */
   data: {
+    allowCancel: false,
+  },
 
+  async refreshShowIndexButton() {
+    try {
+      const res = await db.collection('content').doc('showIndexButton').get();
+      const allowCancelRaw = res?.data?.allowCancel;
+      const allowCancel =
+        allowCancelRaw === 1 || allowCancelRaw === true || allowCancelRaw === '1';
+      this.setData({
+        allowCancel,
+      });
+    } catch (err) {
+      console.log(err);
+      this.setData({
+        allowCancel: false,
+      });
+      wx.showToast({
+        title: '网络错误',
+      });
+    }
   },
 
   /**
@@ -70,7 +90,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.refreshShowIndexButton();
   },
 
   /**

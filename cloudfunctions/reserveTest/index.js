@@ -23,6 +23,18 @@ exports.main = async (event,context) => {
 
     const item = await transaction.collection('test_studentForm').doc(tryRoomInfo).get();
     const student = await transaction.collection('student_reserve').doc(studentID).get();
+    // 检查学生是否已在该考场报名（防止重复报名）
+    const alreadyInForm = item.data && item.data.student && item.data.student.some(s => s._id === studentID);
+    const alreadyInReserve = student.data && student.data.roomID && student.data.roomID.some(r => r._id === event.event._id);
+
+    if (alreadyInForm || alreadyInReserve) {
+      await transaction.rollback();
+      return {
+        success: false,
+        log: 'Already enrolled in this exam!'
+      };
+    }
+
     if(item.data.roomVolume - item.data.student.length > 0 && student) {
       const updateStudentForm = await transaction.collection('test_studentForm').doc(tryRoomInfo).update({
         data: {

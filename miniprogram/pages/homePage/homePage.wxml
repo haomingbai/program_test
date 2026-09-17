@@ -102,25 +102,27 @@
 </view>
 
 <!-- 列表信息需要根据用户的情况来选择性报名，选什么课抱什么课程名 -->
-<view wx:for="{{reserveExam}}" bindtap="navigateToExam" data-url="../examInform/examInformList" data-cno="{{item}}" class=" shadow-warp margin-top radius" style="display: flex;align-items: flex-start;margin-left: 2vh;margin-right: 2vh;background-color: white;border-bottom-color: #F1F1F1;margin-top: 1.2vh;">
-  <view>
-    <view style="display: flex;width: 100%;padding: 2.5vh;">
-      <image src="../../res/icon.png" mode="heightFix" style="height: 8vh;" />
-      <view class="text-xl text-bold" style="font-size: 1.5vh;display: flex;align-items: center;justify-content: center;flex-direction: column;margin-left: 7vh;">
+<block wx:if="{{allowReservation}}">
+  <view wx:for="{{reserveExam}}" bindtap="navigateToExam" data-url="../examInform/examInformList" data-cno="{{item}}" class=" shadow-warp margin-top radius" style="display: flex;align-items: flex-start;margin-left: 2vh;margin-right: 2vh;background-color: white;border-bottom-color: #F1F1F1;margin-top: 1.2vh;">
+    <view>
+      <view style="display: flex;width: 100%;padding: 2.5vh;">
+        <image src="../../res/icon.png" mode="heightFix" style="height: 8vh;" />
+        <view class="text-xl text-bold" style="font-size: 1.5vh;display: flex;align-items: center;justify-content: center;flex-direction: column;margin-left: 7vh;">
+        </view>
       </view>
     </view>
-  </view>
 
-  <view style="height: 100%;width: auto;display: flex;align-items: center;justify-content: center;height: 13vh;">
-    <view style="display: flex;width: 100%;padding: 2.5vh;align-items: center;justify-content: center;">
-      <view class="text-xl text-bold" style="font-size: 1.5vh;display: flex;align-items: center;justify-content: center;flex-direction: column;line-height: 3vh;">
-        <text>考试科目</text>
-        <text>{{item}}</text>
-      
+    <view style="height: 100%;width: auto;display: flex;align-items: center;justify-content: center;height: 13vh;">
+      <view style="display: flex;width: 100%;padding: 2.5vh;align-items: center;justify-content: center;">
+        <view class="text-xl text-bold" style="font-size: 1.5vh;display: flex;align-items: center;justify-content: center;flex-direction: column;line-height: 3vh;">
+          <text>考试科目</text>
+          <text>{{item}}</text>
+        
+        </view>
       </view>
     </view>
   </view>
-</view>
+</block>
 
 <view style="height: 20vh;">
 

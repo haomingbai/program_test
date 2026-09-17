@@ -26,13 +26,21 @@ exports.main = async (event, context) => {
 
     sheetData.push([testInfo, "", "", ""])
 
-    sheetData.push(["学号", "姓名", "学院", "班级", "签到状态"])
+    sheetData.push(["座位号", "学号", "姓名", "学院", "班级", "签到状态"])
+    const seen = new Set();
+    let seatNum = 0;
     for (var i = 0, dat, cl; i < originalData.student.length; i++) {
+      const sid = originalData.student[i]._id;
+      if (seen.has(sid)) continue;
+      seen.add(sid);
+      seatNum++;
+
       let row = [];
-      row.push(originalData.student[i]._id);
+      row.push(seatNum);
+      row.push(sid);
       row.push(originalData.student[i].name);
       //Pay attention that var cl should be deleted when coping with the enrollment of competition, and the related vars shold be modified.
-      let cl = await db.collection('student_reserve').doc(originalData.student[i]._id).get();
+      let cl = await db.collection('student_reserve').doc(sid).get();
 
       if (cl.data.school) {
         let school = cl.data.school;

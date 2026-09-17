@@ -22,8 +22,8 @@
         </view>
     </view>
 </view>
-<view class="cu-list menu sm-border card-menu">
-  <button class="cu-btn round bg-red shadow" style="display: flex;" bind:tap="cancelReservation">取消报名</button>
+<view class="cu-list menu sm-border card-menu" wx:if="{{allowCancel}}">
+    <button class="cu-btn round bg-red shadow" style="display: flex;" bind:tap="cancelReservation">取消报名</button>
 </view>
 <text class="text-df" style="display: flex;padding: 20px;">\n {{reminder}} </text>
 
