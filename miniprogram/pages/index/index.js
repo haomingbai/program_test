@@ -12,7 +12,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    // 所有入口开关默认 false，云函数调用失败时保证不显示任何入口
+    admin: false,
+    enroll: false,
+    signin: false,
+    teacher: false,
   },
   toNavigate() {
     /*wx.switchTab({
@@ -74,6 +78,20 @@ Page({
           enroll: res.data.enroll,
           signin: res.data.signin,
           teacher: res.data.teacher
+        });
+      }
+    ).catch(
+      err => {
+        // 云函数/数据库调用失败：正常加载页面，但关闭所有入口开关
+        console.log('showIndexButton 调用失败，所有入口已隐藏：', err);
+        wx.showToast({
+          title: '网络错误',
+        })
+        this.setData({
+          admin: false,
+          enroll: false,
+          signin: false,
+          teacher: false
         });
       }
     )
