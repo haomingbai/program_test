@@ -46,6 +46,7 @@ Page({
         }
       ).catch(
         err => {
+          console.log('student_reserve 查询失败：', err);
           wx.hideLoading()
           wx.showToast({
             title: '网络错误',
@@ -266,27 +267,28 @@ Page({
     )
   },
 
-  nextStep: function() {
-    wx.hideLoading();
+  nextStep: async function() {
     console.log(this.data.studentID);
     console.log(this.data.attributes);
-    wx.cloud.callFunction({
-      name: "updateStudentPersonalInfo",
-      data: {
-        studentID: this.data.studentID,
-        school: this.data.attributes.organizationname[0],
-        identityType: this.data.attributes.identitytypename[0],
-        name: this.data.attributes.name[0],
+    try {
+      // 等待云函数完成（内部含自动注册：student_reserve 无此学生时会创建文档）
+      const res = await wx.cloud.callFunction({
+        name: "updateStudentPersonalInfo",
+        data: {
+          studentID: this.data.studentID,
+          school: this.data.attributes.organizationname[0],
+          identityType: this.data.attributes.identitytypename[0],
+          name: this.data.attributes.name[0],
+        }
+      });
+      console.log(res);
+      if (!res.result || !res.result.success) {
+        console.error('updateStudentPersonalInfo 失败：', res.result && res.result.err);
       }
-    }).then(
-      res => {
-        console.log(res);
-      }
-    ).catch(
-      err => {
-        console.log(err);
-      }
-    )
+    } catch (err) {
+      console.log(err);
+    }
+    wx.hideLoading();
     wx.setStorageSync('studentID', this.data.studentID);
     wx.setStorageSync('studentName', this.data.attributes.name[0]);
     this.onLoad();
