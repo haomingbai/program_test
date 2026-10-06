@@ -54,6 +54,8 @@ Page({
         that.setData({
           testInfo: res.data
         })
+        // 座位号: 仅当 test_studentForm 中该生的 seat 字段已生成时展示, 否则整个条目隐藏
+        that.fetchSeatNumber(res.data)
       }
     ).catch(
       err => {
@@ -75,6 +77,37 @@ Page({
         wx.showToast({
           title: '网络错误',
         })
+      }
+    )
+  },
+
+  // 用 test_partInfo 的 课程+时间+机房 拼出 test_studentForm 的 _id, 从中找到本人记录里的座位号。
+  // test_studentForm._id 拼法与 reserveTest / update_test_partInfo 一致: courseID + testTime + roomInfo
+  fetchSeatNumber(partInfo) {
+    const that = this;
+    if (!partInfo || !partInfo.courseID || !partInfo.testTime || !partInfo.roomInfo) {
+      return;
+    }
+    const formID = partInfo.courseID + partInfo.testTime + partInfo.roomInfo;
+    const studentID = wx.getStorageSync('studentID');
+    db.collection('test_studentForm').doc(formID).get().then(
+      res => {
+        const students = res.data && res.data.student;
+        if (!Array.isArray(students) || !studentID) {
+          return;
+        }
+        const mine = students.find(s => s && s._id === studentID);
+        if (mine && mine.seat !== undefined && mine.seat !== null) {
+          that.setData({
+            seatNumber: mine.seat,
+            hasSeat: true
+          })
+        }
+      }
+    ).catch(
+      err => {
+        // 考场表不存在或权限问题等情况, 一律静默不展示座位号
+        console.log('fetchSeatNumber:', err);
       }
     )
   },

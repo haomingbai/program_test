@@ -26,17 +26,17 @@ exports.main = async (event, context) => {
 
     sheetData.push([testInfo, "", "", ""])
 
+    // 座位列永远存在; 学生项缺少 seat 字段时 (座位号尚未生成) 留空
     sheetData.push(["座位号", "学号", "姓名", "学院", "班级", "签到状态"])
     const seen = new Set();
-    let seatNum = 0;
     for (var i = 0, dat, cl; i < originalData.student.length; i++) {
       const sid = originalData.student[i]._id;
       if (seen.has(sid)) continue;
       seen.add(sid);
-      seatNum++;
 
       let row = [];
-      row.push(seatNum);
+      const seat = originalData.student[i].seat;
+      row.push(seat === undefined || seat === null ? "" : seat);
       row.push(sid);
       row.push(originalData.student[i].name);
       //Pay attention that var cl should be deleted when coping with the enrollment of competition, and the related vars shold be modified.

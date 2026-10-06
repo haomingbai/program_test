@@ -561,9 +561,82 @@ Page({
     return all
   },
 
+  // 为考场列表逐场生成座位号, 返回失败场次数。
+  // 单场失败不中断, 失败考场的导出表格座位号列将留空。
+  async generateSeatNumbersForRooms(rooms) {
+    let failed = 0
+    for (let i = 0; i < rooms.length; i++) {
+      wx.showLoading({
+        title: `座位号${i + 1}/${rooms.length}`,
+        mask: true
+      })
+      try {
+        const res = await wx.cloud.callFunction({
+          name: 'generateSeatNumber',
+          data: {
+            testInfo: rooms[i]
+          }
+        })
+        if (!(res && res.result && res.result.success)) failed++
+      } catch (err) {
+        console.log('generateSeatNumber failed for', rooms[i], err)
+        failed++
+      }
+    }
+    return failed
+  },
+
+  // 生成全部座位号 (可单独执行, downloadAllTestPartInfo 导出前也会先调这一步)
+  async generateAllSeatNumbers() {
+    wx.showLoading({
+      title: '准备中',
+      mask: true
+    })
+    try {
+      const listRes = await wx.cloud.callFunction({
+        name: 'downloadAllTestPartInfo',
+        data: {}
+      })
+      const rooms = (listRes && listRes.result && Array.isArray(listRes.result.testInfos)) ?
+        listRes.result.testInfos :
+        []
+      if (!rooms.length) {
+        wx.hideLoading()
+        wx.showToast({
+          title: '暂无考场信息',
+          icon: 'none'
+        })
+        return
+      }
+
+      const failed = await this.generateSeatNumbersForRooms(rooms)
+      wx.hideLoading()
+      if (failed) {
+        console.log('generateSeatNumber failed count:', failed)
+        wx.showToast({
+          title: `${failed}场未生成`,
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '座位号已生成',
+          icon: 'success'
+        })
+      }
+    } catch (err) {
+      console.log(err)
+      wx.hideLoading()
+      wx.showToast({
+        title: '调用失败',
+        icon: 'none'
+      })
+    }
+  },
+
   // 说明：小程序端无法直接使用 node-xlsx（它是 Node 生态模块）。
   // 这里改为：先从 downloadAllTestPartInfo 云函数拿到全部考场列表，
   // 再在小程序端循环调用 downloadTestPartInfo 云函数，逐个下载/打开/删除分表，避免一次性云函数超时。
+  // 导出前会先逐场生成座位号：先生成，再导出。
   async downloadAllTestPartInfo() {
     wx.showLoading({
       title: '准备中',
@@ -601,6 +674,9 @@ Page({
         })
         return
       }
+
+      // 先生成座位号, 再导出; 失败场次的座位号列导出时留空
+      const seatFailed = await this.generateSeatNumbersForRooms(rooms)
 
       const runTs = Date.now()
       const usedNames = new Set()
@@ -666,10 +742,18 @@ Page({
       }
 
       wx.hideLoading()
-      wx.showToast({
-        title: '已生成',
-        icon: 'success'
-      })
+      if (seatFailed) {
+        console.log('generateSeatNumber failed count:', seatFailed)
+        wx.showToast({
+          title: '已生成,座位有缺',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '已生成',
+          icon: 'success'
+        })
+      }
     } catch (err) {
       console.log(err)
       wx.hideLoading()

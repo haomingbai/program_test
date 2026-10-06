@@ -23,6 +23,7 @@
 			<button class="cu-btn bg-green round margin-tb-sm" bind:tap="chooseExcel">上传考场信息</button>
 			<button class="cu-btn bg-cyan round margin-tb-sm" bind:tap="chooseStudentForm">上传学生选课信息</button>
 			<button class="cu-btn bg-purple round margin-tb-sm" bind:tap="getUnreserved">获取未报名学生信息</button>
+			<button class="cu-btn bg-olive round margin-tb-sm" bind:tap="generateAllSeatNumbers">生成全部座位号</button>
 			<button class="cu-btn bg-orange round margin-tb-sm" bind:tap="downloadAllTestPartInfo">下载全部签到表</button>
 			<button class="cu-btn bg-red round margin-tb-sm" bind:tap="clearAll" wx:if="{{dangerousFunction}}">清空考试信息</button>
 			<button class="cu-btn line-red round margin-tb-sm" bind:tap="maskAll">移除考试信息</button>

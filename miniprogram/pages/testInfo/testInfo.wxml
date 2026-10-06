@@ -21,6 +21,12 @@
             <text class="text-grey">地点: {{testInfo.roomInfo}}</text>
         </view>
     </view>
+    <view class="cu-item" wx:if="{{hasSeat}}">
+        <view class="content">
+            <text class="cuIcon-medal text-grey"></text>
+            <text class="text-grey">座位号: {{seatNumber}}</text>
+        </view>
+    </view>
 </view>
 <view class="cu-list menu sm-border card-menu" wx:if="{{allowCancel}}">
     <button class="cu-btn round bg-red shadow" style="display: flex;" bind:tap="cancelReservation">取消报名</button>

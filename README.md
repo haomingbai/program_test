@@ -29,3 +29,35 @@
 
 写这个代码的时候, 我还没有数据库的知识, 更不知道什么 "nosql", 只知道要把功能做出来. 现在要想写, 光技术评估就要好几个月, 从引用的库的稳定性, 到抽象模型, 运行效率, 都要注意.
 当年真是 “初生牛犊不怕虎”, 敢下手, 敢交付. 果然干什么事情, 都得趁早, 都得一鼓作气.
+
+---
+
+## 数据结构与座位号 (2026 年 10 月补记)
+
+### 五个集合的实际字段
+
+- `admin_insertForm`: `{accountInfo, password}`, 管理员账号, 无加密.
+- `content`: 固定三个文档, `_id` 分别为 `index` / `showIndexButton` / `text`, 分别存机构名, 各按钮开关, 文案提醒.
+- `test_partInfo`: `{courseID, testTime, roomInfo, teacherID, teacherPassword}`, 每行一个考场, `_id` 随机.
+- `test_studentForm`: `{roomVolume, student}`, `_id` 为 `courseID + testTime + roomInfo` 直接拼接 (三段写入前均已 trim). `student` 数组每项为 `{_id: 学号, name, isSigned, seat?}`.
+- `student_reserve`: `{name, password, selectedCourses, roomID, school, identityType, classID}`, `_id` 为学号. `password` 原始规则是 `学号 + 班级`. `roomID` 数组每项为 `{_id, courseID, roomInfo, testTime}`, 其中 `_id` 就是 `test_partInfo` 的 `_id` (2026 年 1 月生产库 5613/5613 全量命中, 可信).
+
+关联关系两条: 学生预约时 `reserveTest` 把学生 push 进 `test_studentForm.student`, 同时把考场信息 push 进 `student_reserve.roomID`. 场次变更历史上有 `getInfo` 云函数直接改 `roomID[].testTime`.
+
+### 座位号字段设计 (本次新增)
+
+字段名 `seat`, 挂在 `test_studentForm.student[]` 每一项上, 数字类型, 从 1 开始. 生成规则: 该考场全体学生按学号升序排序后依次编号, 然后整个数组覆盖写回. 因此重复调用 `generateSeatNumber` 即为重新生成, 结果幂等; 预约中途新增的学生会在下一次生成时获得编号.
+
+按学号排序的一个副作用: 签到表导出的顺序从 "预约顺序" 变成了 "学号序". 我认为名单整齐比预约先后更重要, 就这么定了.
+
+消费方三处, 各自的容错逻辑:
+
+- `generateSeatNumber` 云函数 (新增): 传入 `testInfo` (即 `test_studentForm` 的 `_id`), 单场生成. 批量由小程序端循环调用, 云函数内不做全表循环, 避免超时.
+- `downloadTestPartInfo` 云函数: 签到表 "座位号" 列永远存在; 学生项没有 `seat` 字段时 (尚未生成) 该格留空. 不再像旧版那样导出时临时编号——临时编号与真实座位对不上, 是要出事的.
+- 学生端 `testInfo` 页面: 用 `courseID + testTime + roomInfo` 拼出考场表 `_id`, 找到本人记录, 有 `seat` 才显示 "座位号" 条目, 没有就整条隐藏. 页面查不到考场表时静默降级.
+
+### 两个坑, 记下来
+
+1. `studentSignIn` 是按 `student.<index>` 下标更新签到状态的. `generateSeatNumber` 会重排数组, 所以签到进行期间不要重新生成座位号, 存在下标竞态.
+2. 管理端 "下载全部签到表" 现在是先逐场生成座位号再导出; 单场生成失败不中断, 对应表格座位号留空, 结束时 toast 会提示失败场次数. 另有独立的 "生成全部座位号" 按钮可单独执行.
+
