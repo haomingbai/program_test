@@ -7,7 +7,7 @@ cloud.init({
 
 const db = cloud.database()
 
-var xlsx = require('node-xlsx');
+const XLSX = require('xlsx');
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -24,7 +24,11 @@ exports.main = async (event, context) => {
 
   const tasks = [] //用来存储所有的添加数据操作
   //2,解析excel文件里的数据
-  var sheets = xlsx.parse(buffer); //获取到所有sheets
+  const wb = XLSX.read(buffer, { type: 'buffer' });
+  const sheets = wb.SheetNames.map((name) => ({
+    name: name,
+    data: XLSX.utils.sheet_to_json(wb.Sheets[name], { header: 1, raw: true }),
+  })); //获取到所有sheets
   for (const sheet of sheets) {
     console.log(sheet['name']);
     var calc = 0;

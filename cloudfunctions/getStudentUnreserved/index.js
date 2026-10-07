@@ -1,6 +1,6 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
-const xlsx = require('node-xlsx')
+const XLSX = require('xlsx')
 
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
@@ -46,10 +46,9 @@ exports.main = async (event, context) => {
     const roomLen = Array.isArray(elem.roomID) ? elem.roomID.length : 0;
     sheetData.push([elem.name || '', elem._id || '', elem.school || '', selectedLen - roomLen]);
   }
-  const buff = await xlsx.build([{
-    name: "nreservedStus",
-    data: sheetData
-  }]);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sheetData), "nreservedStus");
+  const buff = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
   let path = new Date().getTime()
   let uploadResult = await cloud.uploadFile({
     cloudPath: path + "未报名学生表" + '.xlsx',

@@ -5,7 +5,7 @@ cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 }) // 使用当前云环境
 
-const xlsx = require('node-xlsx');
+const XLSX = require('xlsx');
 
 const db = cloud.database()
 
@@ -69,10 +69,9 @@ exports.main = async (event, context) => {
     }
     //if(!sheetData){throw sheetData;}
 
-    var buffer = xlsx.build([{
-      name: 'sheet1',
-      data: sheetData
-    }])
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sheetData), 'sheet1');
+    var buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' })
 
     let path = new Date().getTime()
     let result = await cloud.uploadFile({

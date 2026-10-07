@@ -3,7 +3,9 @@ const crypto = require('crypto');
 
 const BASE_URL = 'https://uis.nwpu.edu.cn';
 const SERVICE = 'https://ecampus.nwpu.edu.cn/';
-const SECRET = 'casLogin_secret_key_nwpu_2024';
+// HMAC 签名密钥: 在云开发控制台的环境变量 CAS_LOGIN_SECRET 中配置
+// 轮换密钥会使存量 MFA 会话 token 失效, 用户需重新登录
+const SECRET = process.env.CAS_LOGIN_SECRET;
 
 function rsaEncrypt(plaintext, publicKeyPem) {
   const encrypted = crypto.publicEncrypt(
